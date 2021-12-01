@@ -1,0 +1,11 @@
+#tsparticles{
+    z-index: 0;
+}
+
+#particalChild{
+    z-index: 1;
+}
+
+#tsparticles-canvas-el{
+    z-index: 0;
+}
