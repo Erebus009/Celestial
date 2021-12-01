@@ -1,9 +1,9 @@
-.particalParent{
+.particleParent{
     position: relative;
     z-index: 0;
 }
 
-.particalChild{
+.particleChild{
     z-index: 1;
     position: absolute;
     top: 10vh;

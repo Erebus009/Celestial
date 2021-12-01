@@ -1,17 +1,17 @@
 import React from 'react'
 
-import ParticalWrap from './ParticalWrap';
-import '../utils/partical.css'
+import ParticleWrap from './ParticleWrap';
+import '../utils/particle.css'
 
 export default function Hero() {
     return (
-        <div className="particalParent">
+        <div className="particleParent">
         
-        <ParticalWrap >
-            <div className="particalChild">
+        <ParticleWrap >
+            <div className="particleChild">
                 <h1>TESTER</h1>
             </div>
-        </ParticalWrap>
+        </ParticleWrap>
         </div>
             
     )

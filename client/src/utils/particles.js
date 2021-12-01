@@ -1,4 +1,4 @@
-export const particalsSetup = {
+export const particleSetup = {
   "background": {
     "color": {
       "value": "#232741"
