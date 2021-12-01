@@ -1,0 +1,12 @@
+:root{
+    --background-blue: #194155;
+    --light-blue: #2B8EC0;
+    --header-blue: #132229;
+  }
+
+
+.home-container {
+
+background-color: var(--background-blue);
+height: 100vh;
+}

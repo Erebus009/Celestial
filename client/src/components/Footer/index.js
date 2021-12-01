@@ -1,5 +1,4 @@
-import React from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import React from 'react'
 
 
 const Footer = () =>{
@@ -10,4 +9,4 @@ const Footer = () =>{
     </footer>
 }
 
-export default Footer;
+export default Footer

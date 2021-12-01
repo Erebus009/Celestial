@@ -1,0 +1,33 @@
+/* .me-auto{
+    padding:20px;
+    justify-content:end;
+    color:white;
+} */
+
+#navItem{
+    color:white !important;
+}
+
+#navbar-container{
+    align-content:space-between;
+    justify-content: end;
+}
+
+#alignSelf{
+align-self:left;
+flex:start; 
+}
+/* #home-logo{
+    padding:20px;
+    justify-content:end;
+}
+#login-nav{
+    padding:20px;
+}
+
+#signup-nav{
+    padding:20px;
+}
+#logout-nav{
+    padding:20px;
+} */
