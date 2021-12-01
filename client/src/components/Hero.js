@@ -1,18 +1,15 @@
 import React from 'react'
 
-import ParticleWrap from './ParticleWrap';
-import '../utils/particle.css'
+import ParticleWrap from '../utils/ParticleWrapper/ParticleWrap';
 
-export default function Hero() {
+
+
+export default function Hero(props) {
     return (
-        <div className="particleParent">
         
-        <ParticleWrap >
-            <div className="particleChild">
-                <h1>TESTER</h1>
-            </div>
-        </ParticleWrap>
-        </div>
+    <ParticleWrap height={"50vh"}>
+        <h1>Stuff here!</h1>
+    </ParticleWrap>
             
     )
 }
