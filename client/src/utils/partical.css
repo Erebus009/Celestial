@@ -1,11 +1,16 @@
-#tsparticles{
+.particalParent{
+    position: relative;
     z-index: 0;
 }
 
-#particalChild{
+.particalChild{
     z-index: 1;
+    position: absolute;
+    top: 10vh;
+    color: white
 }
 
-#tsparticles-canvas-el{
+.tsparticles-canvas-el{
     z-index: 0;
 }
+

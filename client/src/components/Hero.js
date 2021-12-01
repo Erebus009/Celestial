@@ -5,10 +5,13 @@ import '../utils/partical.css'
 
 export default function Hero() {
     return (
-        <div>
+        <div className="particalParent">
         
-        <ParticalWrap />
-        <h1>NASA STUFF HERE</h1>
+        <ParticalWrap >
+            <div className="particalChild">
+                <h1>TESTER</h1>
+            </div>
+        </ParticalWrap>
         </div>
             
     )

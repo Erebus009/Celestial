@@ -3,10 +3,10 @@ export const particalsSetup = {
     "color": {
       "value": "#232741"
     },
-    // "image": "url('http://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1237px-NASA_logo.svg.png')",
-    // "position": "25% 50%",
-    // "repeat": "no-repeat",
-    // "size": "20%",
+    "image": "url('http://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1237px-NASA_logo.svg.png')",
+    "position": "20% 50%",
+    "repeat": "no-repeat",
+    "size": "20%",
     "opacity": 1
 
   },
@@ -103,3 +103,47 @@ export const particalsSetup = {
     }
   }
 }
+
+export const oldPartical = {
+  "particles": {
+      "number": {
+          "value": 60,
+          "density": {
+              "enable": true,
+              "value_area": 1500
+          }
+      },
+      "line_linked": {
+          "enable": true,
+          "opacity": 0.02
+      },
+      "move": {
+          "direction": "right",
+          "speed": 0.05
+      },
+      "size": {
+          "value": 1
+      },
+      "opacity": {
+          "anim": {
+              "enable": true,
+              "speed": 1,
+              "opacity_min": 0.05
+          }
+      }
+  },
+  "interactivity": {
+      "events": {
+          "onclick": {
+              "enable": true,
+              "mode": "push"
+          }
+      },
+      "modes": {
+          "push": {
+              "particles_nb": 1
+          }
+      }
+  },
+  "retina_detect": true
+} 
