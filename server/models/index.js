@@ -1,4 +1,8 @@
 const User = require('./User');
-const Post = require("./Post")
+const Picture = require("./Picture")
+const Favorite = require("./Favorites")
+const Comments = require("./Comment")
 
-module.exports = { User, Post};
+
+ 
+module.exports = { User, Picture, Favorite, Comments};

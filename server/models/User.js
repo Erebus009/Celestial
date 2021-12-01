@@ -19,12 +19,25 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  posts:[
+  pictures:[
     {
       type: Schema.Types.ObjectId,
-      ref: "Post"
+      ref: "Picture"
     }
   ],
+  favorites:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Favorite"
+    }
+  ],
+  comments:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
+
   
 });
 
