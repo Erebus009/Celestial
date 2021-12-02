@@ -66,13 +66,13 @@ export const particleSetup = {
         "top": "out"
       },
       "random": true,
-      "speed": 1
+      "speed": 0.5
     },
     "number": {
       "density": {
         "enable": true
       },
-      "value": 160
+      "value": 140
     },
     "opacity": {
       "random": {
@@ -93,11 +93,11 @@ export const particleSetup = {
         "enable": true
       },
       "value": {
-        "min": 1,
-        "max": 3
+        "min": 0.5,
+        "max": 1
       },
       "animation": {
-        "speed": 4,
+        "speed": 2,
         "minimumValue": 0.3
       }
     }

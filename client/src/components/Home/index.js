@@ -1,15 +1,17 @@
 import React from "react";
 import "./styles/home.css";
 
-import Hero from './Hero'
+import APOD from '../PictureCards/APOD'
+import Container from "react-bootstrap/esm/Container";
 
 
 const Home = () => {
   return (
-
-    <div className="home-container">
-     <Hero />
-    </div>
+<main className="home-container">
+    <Container className="p-3">
+      <APOD />
+    </Container>
+</main>
   );
 };
 
