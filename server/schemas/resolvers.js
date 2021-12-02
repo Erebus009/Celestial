@@ -43,13 +43,13 @@ const resolvers = {
 
       return { token, user };
     },
-    addPicture: async (parent, { userID, text, imagelink, title, }, context) => {
-        
+    addPicture: async (parent, { text, imagelink, title, }, context) => {
+        if (context.user){
 
        const picture = await Picture.create({text,imagelink,title})
 
        return User.findByIdAndUpdate(
-          {_id : userId},
+          context.user._id,
           
           {$addToSet: {pictures: { picture } }},
           
@@ -59,7 +59,7 @@ const resolvers = {
           }
 
        )
-        
+      }
     },
     addComment: async (parent, { PictureId, commentText, commentAuthor }) => {
       const comment = await Comment.create({ commentText, commentAuthor });
