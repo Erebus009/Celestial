@@ -12,14 +12,12 @@ export default function APOD(props) {
 
     return (
         <Container className='border border-light p-3 ' fluid='md'>
-            <Row className='align-center text-center' style={{color:"white"}} >
+            
 
                     <QueryClientProvider client={queryClient}>
                         <GetAPI />
                     </QueryClientProvider>
-
-            </Row>
-  
+ 
         </Container>
     )
 }
@@ -32,7 +30,7 @@ function GetAPI(){
         const today = date.getFullYear() +"-"+(date.getMonth()+1)+"-"+(date.getDate() < 10 ? "0"+date.getDate() : date.getDate())
         console.log(today);
 
-        const photoData = await fetch(`https://api.nasa.gov/planetary/apod?api_key=WbDlakTXch19fafsknLbL5rjElseOcJRsyeix8r3&date=21-8-21`)
+        const photoData = await fetch(`https://api.nasa.gov/planetary/apod?api_key=WbDlakTXch19fafsknLbL5rjElseOcJRsyeix8r3&date=${today}`)
         if(!photoData.ok){
             throw new Error('Issues connecting to NASA API')
         }
@@ -42,7 +40,7 @@ function GetAPI(){
 
     if(isLoading){
         return(
-            <>
+        <Row className='align-center text-center' style={{color:"white"}} >
             <Col md={6} sm={12}>
                 <span>Loading Photo</span>
             </Col>
@@ -50,34 +48,34 @@ function GetAPI(){
                 <h2>Loading...</h2>
                 <p>Loading...</p>
             </Col>
-        </>
+        </Row>
         )
     }
 
     if(isError){
         return(
-            <>
+            <Row className='align-center text-center' style={{color:"white"}} >
                 <Col md={6} sm={12}>
                     <Image src="./test1.jpg" rounded fluid />
                 </Col>
-                <Col md={6} sm={12} >
+                <Col md={6} sm={12} className="text-center">
                     <h2>View of a massive planetary</h2>
                     <p>Lovely Rendered View</p>
                 </Col>
-            </>
+            </Row>
         )
     }
 
     return(
-        <>
+    <Row className='align-items-center text-center' style={{color:"white"}} >
         <Col md={6} sm={12}>
             <Image src={data.url} rounded fluid />
         </Col>
-        <Col md={6} sm={12} >
+        <Col md={6} sm={12} className='justify-content-center'>
             <h2>{data.title}</h2>
             <p>{data.explanation.slice(0,150) + "..."}</p>
         </Col>
-    </>
+    </Row>
 
     )
 

@@ -4,7 +4,8 @@ import Container from 'react-bootstrap/esm/Container'
 
 
 const Footer = () =>{
-    return  <footer class="footer">
+    return  (
+    <Container class="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-7">
@@ -52,8 +53,8 @@ const Footer = () =>{
             </div>
         </div>
     </div>
-</footer>
-
+</Container>
+    )
    
 }
 
