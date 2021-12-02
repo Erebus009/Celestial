@@ -1,15 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const pictureSchema = new Schema({
-  pictureAuthor: {
+  
+  title: {
     type: String,
     trim: true,
     required: true,
-  },
-  title:{
-    type:String,
-    trim: true,
-    required: true
   },
 
   text: {
@@ -18,23 +14,26 @@ const pictureSchema = new Schema({
     required: true,
   },
   createdAt: {
-      type: Date,
-      default: Date.now()
+    type: Date,
+    default: Date.now(),
   },
-  
-  imagelink : {
+
+  imagelink: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
-  comments:[
+  postedBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+
+  comments: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Comment"
-    }
-  ]
-  
-
+      ref: "Comment",
+    },
+  ],
 });
 
 const Picture = model("Picture", pictureSchema);

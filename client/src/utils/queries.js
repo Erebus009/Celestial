@@ -6,13 +6,22 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
+      pictures {
         _id
-        thoughtText
+        pictureAuthor
+        text
+        title
+        imagelink
         createdAt
+        comments{
+          commentText
+          commnentAuthor
+          createdAt
+        }
       }
     }
-  }
+  },
+ 
 `;
 
 

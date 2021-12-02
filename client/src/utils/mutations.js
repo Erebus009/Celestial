@@ -6,7 +6,7 @@ export const LOGIN_USER = gql`
       token
       user {
         _id
-        username
+       
       }
     }
   }
@@ -18,9 +18,22 @@ export const ADD_USER = gql`
       token
       user {
         _id
-        username
+      
       }
     }
   }
+`;
+
+export const add_Picture = gql`
+mutation addPicture($text:String!, $pictureAuthor:String!,$imagelink:String!, $title:String!){
+  addPicture(text:$text, imagelink:$imagelink,title:$title){
+      _id
+      text
+      title
+      imagelink
+    }
+  }
+
+
 `;
 
