@@ -1,12 +1,12 @@
 export const particleSetup = {
   "background": {
     "color": {
-      "value": "#232741"
+      "value": "#000000"
     },
-    "image": "url('http://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1237px-NASA_logo.svg.png')",
-    "position": "20% 50%",
-    "repeat": "no-repeat",
-    "size": "20%",
+    // "image": "",
+    // "position": "20% 50%",
+    // "repeat": "no-repeat",
+    // "size": "20%",
     "opacity": 1
 
   },
