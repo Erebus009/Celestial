@@ -11,7 +11,10 @@ import Home from "./components/Home";
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Profile from './components/Profile/index.js';
+import Profile from './components/Profile';
+import Signup from './components/Signup'
+import Login from './components/Login'
+import Logout from './components/Logout'
 import Comments from './components/Comments/index.js';
 import Favorites from './components/Favorites/index.js';
 import Navbar from './components/Navbar/index.js';
@@ -44,21 +47,22 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Header />
-      <Navbar />
+      
+ 
       <Router>
+      <Header />
+        <Navbar />
 
-
-          <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/logout" component={Logout} />
-          </Switch>
-          
-       
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/logout" component={Logout} />
+            </Switch>
+            
+        <Footer />
       </Router>
-      <Footer />
+      
     </ApolloProvider>
   );
 }
