@@ -1,7 +1,5 @@
-
-
-  :root{
-    --background-blue: #194155;
+:root{
+    --background-blue: #2b4d6d;
     --light-blue: #2B8EC0;
     --header-blue: #132229;
   }
@@ -17,16 +15,4 @@
   header{
     background-color: var(--header-blue)
   }
-  footer {
-    position: absolute;
-    bottom: 0;
-    background-color: var(--light-blue);
-    width: 100%;
-    height: 80px;
-    align-items: center;
-    color: white;
-  }
-  footer p {
-    font-size: 2em;
-    margin-top: 20px;
-  }
+ 

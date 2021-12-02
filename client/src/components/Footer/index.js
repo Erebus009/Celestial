@@ -1,12 +1,15 @@
 import React from 'react'
 
 
-const Footer = () =>{
-    return <footer className="container.fluid d-flex justify-content-around align-items-center">
-        <div className="align-items-center d-flex">
-            <p className="">Celestial</p>
+const Footer = () => { 
+    return (
+      <footer className="w-100 mt-auto bg-secondary p-4">
+        <div className="container text-center mb-5">
+     
+    
         </div>
-    </footer>
-}
-
-export default Footer
+      </footer>
+    );
+  };
+  
+  export default Footer;

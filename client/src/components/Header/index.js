@@ -1,10 +1,11 @@
 import React from 'react';
 import '../Header/styles/header.css';
-import Typical from 'react-typical'
+import Typical from 'react-typical';
+import { Link } from 'react-router-dom';
 
 const styles = {
   headerStyle: {
-    background: 'gray',
+    background: 'black',
   },
   headingStyle: {
     fontSize: '40px',
@@ -16,6 +17,7 @@ const styles = {
 function Header() {
   return (
     <header style={styles.headerStyle} className="header">
+    <Link className="text-dark" to="/">
     <h1>
       <Typical 
       loop={Infinity}
@@ -31,7 +33,7 @@ function Header() {
       ]}
       /> 
   </h1>
-
+  </Link>
     </header>
   );
 }
