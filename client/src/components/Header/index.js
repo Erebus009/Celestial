@@ -2,21 +2,14 @@ import React from 'react';
 import '../Header/styles/header.css';
 import Typical from 'react-typical'
 
-const styles = {
-  headerStyle: {
-    background: 'gray',
-  },
-  headingStyle: {
-    fontSize: '40px',
-  },
-};
+
 
 // We use JSX curly braces to evaluate the style object
 
 function Header() {
   return (
-    <header style={styles.headerStyle} className="header">
-    <h1>
+    <header className="header">
+    <h1 className="display-6">
       <Typical 
       loop={Infinity}
       steps={[

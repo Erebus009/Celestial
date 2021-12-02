@@ -1,12 +1,18 @@
-:root{
-    --background-blue: #194155;
-    --light-blue: #2B8EC0;
-    --header-blue: #132229;
+
+
+
+
+@media (min-width: 700px) {
+  .home-container {
+
+    background-color: var(--background-blue);
+    height: 120vh;
+    }
   }
-
-
-.home-container {
-
-background-color: var(--background-blue);
-height: 100vh;
-}
+  @media (max-width: 700px) {
+    .home-container {
+  
+      background-color: var(--background-blue);
+      height: 150vh;
+      }
+    }
