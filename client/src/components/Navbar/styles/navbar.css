@@ -1,25 +1,33 @@
-/* .me-auto{
-    padding:20px;
-    justify-content:end;
-    color:white;
-} */
 
 #navItem{
     color:white !important;
 }
 
-#navbar-container{
+/*  */#navbar-container{
     align-content:space-between;
     justify-content: end;
-    margin-left: 20px;
+  
 }
 img{
     width: 30%;
     height: auto; 
     justify-content: start;
-    /* margin-left:20px; */
+   
 }
-/* 
-.nasa-nav{
-    justify-content:start;
-} */
+
+
+.loginNav{
+   font-size: 20px;
+    margin:20px;
+}
+
+.signupNav{
+    font-size: 20px;
+     margin:20px;
+ }
+ 
+.logoutNav{
+    font-size: 20px;
+     margin:20px;
+ }
+ 
