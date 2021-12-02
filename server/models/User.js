@@ -19,6 +19,26 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  pictures:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Picture"
+    }
+  ],
+  favorites:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Favorite"
+    }
+  ],
+  comments:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ]
+
+  
 });
 
 userSchema.pre("save", async function (next) {
