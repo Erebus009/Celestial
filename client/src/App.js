@@ -8,12 +8,14 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from "./components/Home";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Logout from "./components/Logout";
+
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Navbar from './components/Navbar/index.js'
+import Profile from './components/Profile/index.js';
+import Comments from './components/Comments/index.js';
+import Favorites from './components/Favorites/index.js';
+import Navbar from './components/Navbar/index.js';
+
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({

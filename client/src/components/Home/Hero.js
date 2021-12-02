@@ -29,13 +29,10 @@ export default function Hero() {
     }, []);
 
     return (
-    
-
-        <ParticleWrap height={windowDimensions.height} width={windowDimensions.width}>
-            <h1>NASA APOD</h1>
-            <APOD />
-        </ParticleWrap>
-
+        
+    <ParticleWrap height={"75vh"}>
+        <h1 className="text-white text-center">Stuff here!</h1>
+    </ParticleWrap>
             
     )
 }
