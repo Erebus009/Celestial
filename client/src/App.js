@@ -14,7 +14,11 @@ import Signup from "./components/Signup";
 import Logout from "./components/Logout";
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Navbar from './components/Navbar/index.js'
+import Profile from './components/Profile';
+import Comments from './components/Comments';
+import Favorites from './components/Favorites';
+import Navbar from './components/Navbar/index.js';
+
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -43,19 +47,25 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
+      
           <Header />
           <Navbar />
           <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/profile" component={Profile} />
           <Route exact path="/logout" component={Logout} />
-          </Switch>
+          <Route exact path="/comments" component={Comments} />
+          <Route exact path="/favorites" component={Favorites} />
+       </Switch>
           <Footer />
         </div>
       </Router>
+
     </ApolloProvider>
   );
 }
