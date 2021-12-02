@@ -1,41 +1,110 @@
+
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+const { User, Picture , Favorite , Comments } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find();
+      return User.find().populate("Pictures");
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username });
+      return User.findOne({ username }).populate("Pictures");
+    },
+    pictures: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Picture.find(params).sort({ createdAt: -1 }).populate("Comments");
+    },
+    picture: async (parent, { pictureId }) => {
+      return Picture.findOne({ _id: pictureId }).populate("Comments");
     },
   },
-//  User AUTH mutation
-//
-//   Mutation: {
-//     addUser: async (parent, { username, email, password }) => {
-//       const user = await User.create({ username, email, password });
-//       const token = signToken(user);
-//       return { token, user };
-//     },
-//     login: async (parent, { email, password }) => {
-//       const user = await User.findOne({ email });
+  //  User AUTH mutation
 
-//       if (!user) {
-//         throw new AuthenticationError("No user found with this email address");
-//       }
+  Mutation: {
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
 
-//       const correctPw = await user.isCorrectPassword(password);
+      if (!user) {
+        throw new AuthenticationError("No user found with this email address");
+      }
 
-//       if (!correctPw) {
-//         throw new AuthenticationError("Incorrect credentials");
-//       }
+      const correctPw = await user.isCorrectPassword(password);
 
-//       const token = signToken(user);
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
 
-//       return { token, user };
-//     },
-//   },
+      const token = signToken(user);
+
+      return { token, user };
+    },
+    addPicture: async (parent, { text, PictureAuthor,imagelink,title }) => {
+      const Picture = await Picture.create({ text, PictureAuthor, imagelink, title });
+
+      await User.findOneAndUpdate(
+        { username: PictureAuthor },
+        { $addToSet: { Pictures: Picture._id } }
+      );
+      return Picture;
+    },
+    addComment: async (parent, { PictureId, commentText, commentAuthor }) => {
+      const comment = await Comment.create({ commentText,commentAuthor})
+      
+      return Picture.findOneAndUpdate(
+        { _id: PictureId },
+        {
+          $addToSet: { comments: { commentText, commentAuthor } },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+    },
+    addFavorite: async (parent, {userId, PictureId}) => {
+      return User.findOneAndUpdate(
+        {_id: userId},
+        {
+          $addToSet: {favorites: { _id: PictureId }}
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+
+      )
+      
+    },
+    removeFavorite: async (parent, { favId }) => {
+      return Favorite.findOneAndUpdate(
+        { _id: favId},
+        { $pull: { favorites: { _id: favoriteId } } },
+        { new: true }
+      );
+    },
+
+
+
+    removeComment: async (parent, { PictureId, commentId }) => {
+      return Picture.findOneAndUpdate(
+        { _id: PictureId },
+        { $pull: { comments: { _id: commentId } } },
+        { new: true }
+      );
+    },
+    removePicture: async (parent, { PictureId }) => {
+      return Picture.deleteOne(
+        { _id: PictureId },
+        { $pull: { Pictures: { _id: PictureId } } },
+        { new: true }
+      );
+    },
+  },
 };
 module.exports = resolvers;
