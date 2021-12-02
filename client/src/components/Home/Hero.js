@@ -8,7 +8,7 @@ export default function Hero() {
     return (
         
     <ParticleWrap height={"75vh"}>
-        <h1>Stuff here!</h1>
+        <h1 className="text-white text-center">Stuff here!</h1>
     </ParticleWrap>
             
     )

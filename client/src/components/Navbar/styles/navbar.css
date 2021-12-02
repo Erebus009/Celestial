@@ -1,18 +1,17 @@
 
+
 #navItem{
-    color:white !important;
+    color:rgb(255, 255, 255) !important;
 }
+
 
 /*  */#navbar-container{
     align-content:space-between;
+
     justify-content: end;
   
 }
-img{
-    width: 30%;
-    height: auto; 
-    justify-content: start;
-   
+
 }
 
 

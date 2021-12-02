@@ -1,3 +1,23 @@
+
+
+
+
+
+@media (min-width: 700px) {
+  .home-container {
+
+    background-color: var(--background-blue);
+    height: 120vh;
+    }
+  }
+  @media (max-width: 700px) {
+    .home-container {
+  
+      background-color: var(--background-blue);
+      height: 150vh;
+      }
+    }
+
 :root{
     --background-blue: #215b91;
     --light-blue: #2B8EC0;
@@ -10,4 +30,3 @@
 background-color: var(--background-blue);
 height: 100vh;
 }
-
