@@ -4,20 +4,9 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-<<<<<<< HEAD
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
-
-=======
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -25,7 +14,6 @@ import Logout from "./components/Logout";
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar/index.js'
->>>>>>> aa466fd0f29d0b654f71b083b4c1850b304a88c4
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
