@@ -1,12 +1,12 @@
 import React from "react";
 
 
-const Signup = () => {
+const Profile = () => {
   return (
     <div className="container">
-     <h1> Sign up Page</h1>
+    <h1> Profile</h1>
     </div>
   );
 };
 
-export default Signup;
+export default Profile;

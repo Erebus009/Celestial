@@ -1,6 +1,7 @@
 import React from 'react';
 import '../Header/styles/header.css';
-import Typical from 'react-typical'
+import Typical from 'react-typical';
+import { Link } from 'react-router-dom';
 
 
 
@@ -8,8 +9,11 @@ import Typical from 'react-typical'
 
 function Header() {
   return (
+
     <header className="header">
-    <h1 className="display-6">
+    <Link className="text-dark" to="/">
+    <h1>
+
       <Typical 
       loop={Infinity}
       steps={[
@@ -24,7 +28,7 @@ function Header() {
       ]}
       /> 
   </h1>
-
+  </Link>
     </header>
   );
 }

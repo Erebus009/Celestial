@@ -2,6 +2,7 @@
 
 
 
+
 @media (min-width: 700px) {
   .home-container {
 
@@ -16,3 +17,16 @@
       height: 150vh;
       }
     }
+
+:root{
+    --background-blue: #215b91;
+    --light-blue: #2B8EC0;
+    --header-blue: #132229;
+  }
+
+  
+.home-container {
+
+background-color: var(--background-blue);
+height: 100vh;
+}
