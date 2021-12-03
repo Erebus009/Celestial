@@ -12,6 +12,7 @@ const pictures = [
 ];
 
 export default function TopPics() {
+    console.log(pictures);
   return (
     <Container className="p-3 rounded text-center" fluid="md">
       <Carousel fade controls={false}>
