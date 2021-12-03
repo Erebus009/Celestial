@@ -1,6 +1,10 @@
 
 
-
+:root{
+  --background-blue: #000000;
+  --light-blue: #2B8EC0;
+  --header-blue: #132229;
+}
 
 
 @media (min-width: 700px) {
@@ -18,11 +22,6 @@
       }
     }
 
-:root{
-    --background-blue: #215b91;
-    --light-blue: #2B8EC0;
-    --header-blue: #132229;
-  }
 
   
 .home-container {
