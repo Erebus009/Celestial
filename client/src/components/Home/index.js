@@ -1,14 +1,23 @@
 import React from "react";
 import "./styles/home.css";
 
-import Hero from './Hero'
+import APOD from '../PictureCards/APOD'
+import Container from "react-bootstrap/esm/Container";
+import TopPics from "./TopPics";
 
 
 const Home = () => {
   return (
-    <div className="home-container">
-     <Hero />
-    </div>
+<main style={{backgroundColor:"black"}}>
+    <Container>
+      <div className="mb-3">
+        <TopPics />
+      </div>
+      <div className="mb-3">
+        <APOD />
+      </div>
+    </Container>
+</main>
   );
 };
 

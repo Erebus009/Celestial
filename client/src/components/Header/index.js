@@ -1,22 +1,19 @@
 import React from 'react';
 import '../Header/styles/header.css';
-import Typical from 'react-typical'
+import Typical from 'react-typical';
+import { Link } from 'react-router-dom';
 
-const styles = {
-  headerStyle: {
-    background: 'gray',
-  },
-  headingStyle: {
-    fontSize: '40px',
-  },
-};
+
 
 // We use JSX curly braces to evaluate the style object
 
 function Header() {
   return (
-    <header style={styles.headerStyle} className="header">
+
+    <header className="header">
+    <Link className="text-dark" to="/">
     <h1>
+
       <Typical 
       loop={Infinity}
       steps={[
@@ -31,7 +28,7 @@ function Header() {
       ]}
       /> 
   </h1>
-
+  </Link>
     </header>
   );
 }
