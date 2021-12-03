@@ -3,13 +3,19 @@ import "./styles/home.css";
 
 import APOD from '../PictureCards/APOD'
 import Container from "react-bootstrap/esm/Container";
+import TopPics from "./TopPics";
 
 
 const Home = () => {
   return (
-<main className="home-container">
-    <Container className="p-3">
-      <APOD />
+<main style={{backgroundColor:"black"}}>
+    <Container>
+      <div className="mb-3">
+        <TopPics />
+      </div>
+      <div className="mb-3">
+        <APOD />
+      </div>
     </Container>
 </main>
   );

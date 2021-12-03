@@ -11,7 +11,7 @@ export default function APOD(props) {
 
 
     return (
-        <Container className='border border-light p-3 ' fluid='md'>
+        <Container className='p-3 ' fluid='md'>
             
 
                     <QueryClientProvider client={queryClient}>
