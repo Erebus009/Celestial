@@ -1,12 +1,12 @@
 import React from "react";
 
 
-const Logout = () => {
+const Profile = () => {
   return (
     <div className="container">
-    <h1> Logout Page</h1>
+    <h1> Profile</h1>
     </div>
   );
 };
 
-export default Logout;
+export default Profile;
