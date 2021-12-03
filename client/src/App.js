@@ -6,7 +6,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Route, Switch, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./components/Home";
 
 import Header from "./components/Header";
@@ -14,7 +14,6 @@ import Footer from "./components/Footer";
 import Profile from "./components/Profile";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
 import Comments from "./components/Comments/index.js";
 import Favorites from "./components/Favorites/index.js";
 import Navbar from "./components/Navbar/index.js";
@@ -48,8 +47,6 @@ const UserID = createContext(null);
 function App() {
   const [userName, setUserName] = useState("");
 
-  const navigate = useNavigate();
-
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -61,11 +58,13 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/logout" component={
+            <Route exact path="/logout" render={() => (
               setUserName(""),
               localStorage.removeItem('id_token'),
-              navigate("/")              
-            } />
+              <Redirect to="/" />
+            )} 
+            
+            />
           </Switch>
 
         </UserID.Provider>
