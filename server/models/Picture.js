@@ -27,6 +27,7 @@ const pictureSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
+  
 
   comments: [
     {

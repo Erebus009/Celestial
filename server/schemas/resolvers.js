@@ -7,8 +7,8 @@ const resolvers = {
     users: async () => {
       return User.find().populate("pictures");
     },
-    user: async (parent, { userID }) => {
-      return User.findById( {_id: userID} ).populate("pictures");
+    user: async (parent, { userId }) => {
+      return User.findOne({ _id: userId }).populate("pictures");
     },
     pictures: async (parent, { username }) => {
       const params = username ? { username } : {};
@@ -43,24 +43,25 @@ const resolvers = {
 
       return { token, user };
     },
-    addPicture: async (parent, { text, imagelink, title, }, context) => {
-        if (context.user){
 
-       const picture = await Picture.create({text,imagelink,title})
+    addPicture: async (parent, { pictureData }, context) => {
+      if (context.user) {
+        const picture = await Picture.create({ ...pictureData, postedBy: context.user.id });
 
-       return User.findByIdAndUpdate(
-          context.user._id,
-          
-          {$addToSet: {pictures: { picture } }},
-          
+        const updatedUser = User.findOneAndUpdate(
+          { _id: context.user.id },
+          {
+            $push: { pictures: pictureData },
+          },
           {
             new: true,
-            runValidators: true,
           }
-
-       )
+        );
+        return { updatedUser, picture };
       }
+      throw new AuthenticationError('Need to be logged in to post pictures');
     },
+
     addComment: async (parent, { PictureId, commentText, commentAuthor }) => {
       const comment = await Comment.create({ commentText, commentAuthor });
 
@@ -75,6 +76,7 @@ const resolvers = {
         }
       );
     },
+
     addFavorite: async (parent, { userId, PictureId }) => {
       return User.findOneAndUpdate(
         { _id: userId },

@@ -8,7 +8,6 @@ export const QUERY_USER = gql`
       email
       pictures {
         _id
-        pictureAuthor
         text
         title
         imagelink
