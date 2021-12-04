@@ -1,5 +1,4 @@
 import decode from 'jwt-decode';
-import {Redirect} from 'react-router-dom'
 
 class AuthService {
   getProfile() {

@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./styles/home.css";
 
 import APOD from '../PictureCards/APOD'
 import Container from "react-bootstrap/esm/Container";
 import TopPics from "./TopPics";
-import { UserID } from "../../App";
-
 
 const Home = () => {
-  const { userID } = useContext(UserID)
   return (
 <main style={{backgroundColor:"black"}}>
     <Container>

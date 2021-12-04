@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import {Redirect} from 'react-router-dom'
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
@@ -10,6 +9,7 @@ import Container from "react-bootstrap/Container";
 
 import LoginForm from "./Login";
 import { UserID } from "../../App";
+import { Redirect } from "react-router";
 
 const LoginScreen = ({ show, handleClose, isModal }) => {
   const { userID, setUserID } = useContext(UserID);
@@ -52,7 +52,10 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
   };
 
   return (
+    
     <>
+    {!userID ? (
+      <>
       {isModal ? (
         <Modal
           show={show}
@@ -103,6 +106,11 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
           </Button>
         </Container>
       )}
+      </>
+    )
+    :
+    (<Redirect to="/" />)
+    }
     </>
   );
 };
