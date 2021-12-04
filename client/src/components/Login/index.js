@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
 // bootstrap
+
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -21,7 +22,7 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+console.log("updating")
     setFormState({
       ...formState,
       [name]: value,
@@ -36,10 +37,14 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
         variables: { ...formState },
       });
 
-      console.log(data);
+      Auth.login(data.login.token);
+
+
+    
 
       Auth.login(data.login.token); 
       setUserID(data.login.user._id);
+
     } catch (e) {
       console.error(e);
     }
@@ -52,6 +57,54 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
   };
 
   return (
+
+    <>    
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Celestial ⭐</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={formState.email}
+                onChange={handleChange}
+              />
+              <Form.Text className="">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+              name="password"
+                type="password"
+                placeholder="Password"
+                value={formState.password}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button 
+          variant="primary" 
+          onClick={handleFormSubmit}
+          style={{ cursor: "pointer" }} 
+          type="submit">
+
     <>
       {isModal ? (
         <Modal
@@ -98,7 +151,7 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
             style={{ cursor: "pointer" }}
             type="submit"
             onClick={handleFormSubmit}
-          >
+
             Login
           </Button>
         </Container>

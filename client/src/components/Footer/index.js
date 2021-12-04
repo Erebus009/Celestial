@@ -1,26 +1,32 @@
 import React from 'react'
 import Container from 'react-bootstrap/esm/Container'
-
+import '../Footer/styles/footer.css';
 
 
 const Footer = () =>{
     return  (
-    <Container class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <h5 className="display-6"><i class="fa fa-copyright"></i> Celestial</h5>
-                <div class="row">
-                    <div class="col-6">
-                        <ul class="list-unstyled">
+    <Container className="footer">
+    <div className="container lg">
+        <div className="row">
+            <div className="col-md-7">
+                <h5 className="display-6"><i className="fa fa-copyright"></i> Celestial</h5>
+                <ul className="nav">
+                <li className="nav-item"><a href="" className="nav-link pl-0"><i className="fa fa-facebook fa-lg"></i></a></li>
+                <li className="nav-item"><a href="" className="nav-link"><i className="fa fa-twitter fa-lg"></i></a></li>
+                <li className="nav-item"><a href="" className="nav-link"><i className="fa fa-github fa-lg"></i></a></li>
+                <li className="nav-item"><a href="" className="nav-link"><i className="fa fa-instagram fa-lg"></i></a></li>
+            </ul>
+                <div className="row">
+                    <div className="col-6">
+                        <ul className="list-unstyled">
                             <li><a href="">Mission</a></li>
                             <li><a href="">Goal</a></li>
                             <li><a href="">Partners</a></li>
                             <li><a href="">Team</a></li>
                         </ul>
                     </div>
-                    <div class="col-6">
-                        <ul class="list-unstyled">
+                    <div className="col-6">
+                        <ul className="list-unstyled">
                             <li><a href="">Documentation</a></li>
                             <li><a href="">Support</a></li>
                             <li><a href="">Legal Terms</a></li>
@@ -28,26 +34,21 @@ const Footer = () =>{
                         </ul>
                     </div>
                 </div>
-                <ul class="nav">
-                    <li class="nav-item"><a href="" class="nav-link pl-0"><i class="fa fa-facebook fa-lg"></i></a></li>
-                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-twitter fa-lg"></i></a></li>
-                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-github fa-lg"></i></a></li>
-                    <li class="nav-item"><a href="" class="nav-link"><i class="fa fa-instagram fa-lg"></i></a></li>
-                </ul>
+
                 <br></br>
             </div>
            
-            <div class="col-md-5">
-            <h5 class="text-md-right">Contact Us</h5>
+            <div className="col-md-5">
+            <h5 className="text-md-right">Contact Us</h5>
                 <form>
-                    <fieldset class="form-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
+                    <fieldset className="form-group">
+                        <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
                     </fieldset>
-                    <fieldset class="form-group">
-                        <textarea class="form-control" id="exampleMessage" placeholder="Message"></textarea>
+                    <fieldset className="form-group">
+                        <textarea className="form-control" id="exampleMessage" placeholder="Message"></textarea>
                     </fieldset>
-                    <fieldset class="form-group text-xs-right">
-                        <button type="button" class="btn btn-secondary-outline btn-lg">Send</button>
+                    <fieldset className="form-group text-xs-right">
+                        <button type="button" className="btn btn-secondary-outline btn-lg ">Send</button>
                     </fieldset>
                 </form>
             </div>

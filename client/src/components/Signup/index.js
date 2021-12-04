@@ -1,7 +1,9 @@
+
 import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
+
 // bootstrap
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -18,8 +20,10 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
     password: "",
   });
 
+
   // eslint-disable-next-line
   const [addUser, { error, data }] = useMutation(ADD_USER);
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -32,12 +36,13 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
+    console.log("submitting form with", formState);
 
     try {
       const { data } = await addUser({
         variables: { ...formState },
       });
+      console.log(data);
 
       Auth.login(data.addUser.token);
       setUserID(data.login.user._id);
@@ -99,6 +104,6 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
       )}
     </>
   );
-};
+}
 
 export default SignupScreen;
