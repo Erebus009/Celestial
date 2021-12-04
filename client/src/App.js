@@ -11,11 +11,8 @@ import Home from "./components/Home";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Profile from "./components/Profile";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import Comments from "./components/Comments/index.js";
-import Favorites from "./components/Favorites/index.js";
 import Navbar from "./components/Navbar/index.js";
 
 // Construct our main GraphQL API endpoint
@@ -25,6 +22,7 @@ const httpLink = createHttpLink({
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
+  console.log("I get run here");
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
   // return the headers to the context so httpLink can read them
@@ -42,16 +40,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const UserID = createContext(null);
+export const UserID = createContext(null);
 
 function App() {
-  const [userName, setUserName] = useState("");
+  const [userID, setUserID] = useState("");
 
   return (
     <ApolloProvider client={client}>
       <Router>
         <Header />
-        <UserID.Provider value={userName, setUserName}>
+        <UserID.Provider value={userID, setUserID}>
           <Navbar />
 
           <Switch>
@@ -59,7 +57,7 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" render={() => (
-              setUserName(""),
+              setUserID(""),
               localStorage.removeItem('id_token'),
               <Redirect to="/" />
             )} 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
@@ -8,9 +8,13 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 import LoginForm from "./Login";
+import { UserID } from "../../App";
 
 const LoginScreen = ({ show, handleClose, isModal }) => {
+  const { setUserID } = useContext(UserID);
   const [formState, setFormState] = useState({ email: "", password: "" });
+
+  // eslint-disable-next-line
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
@@ -26,13 +30,15 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     try {
       const { data } = await login({
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
+      console.log(data);
+
+      Auth.login(data.login.token); 
+      setUserID(data.login.user._id);
     } catch (e) {
       console.error(e);
     }
@@ -58,7 +64,11 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
             <Modal.Title>Celestial ⭐</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <LoginForm formState={formState} handleChange={handleChange} handleFormSubmit={handleFormSubmit} />
+            <LoginForm
+              formState={formState}
+              handleChange={handleChange}
+              handleFormSubmit={handleFormSubmit}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -68,6 +78,7 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
               variant="primary"
               style={{ cursor: "pointer" }}
               type="submit"
+              onClick={handleFormSubmit}
             >
               Login
             </Button>
@@ -75,9 +86,18 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
         </Modal>
       ) : (
         <Container className="w-25">
-          <LoginForm formState={formState} handleChange={handleChange} handleFormSubmit={handleFormSubmit} />
+          <LoginForm
+            formState={formState}
+            handleChange={handleChange}
+            handleFormSubmit={handleFormSubmit}
+          />
 
-          <Button variant="primary" style={{ cursor: "pointer" }} type="submit">
+          <Button
+            variant="primary"
+            style={{ cursor: "pointer" }}
+            type="submit"
+            onClick={handleFormSubmit}
+          >
             Login
           </Button>
         </Container>

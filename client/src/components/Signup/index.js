@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
@@ -8,13 +8,17 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 import SignupForm from "./Signup.js";
+import { UserID } from "../../App";
 
 const SignupScreen = ({ show, handleClose, isModal }) => {
+  const { setUserID } = useContext(UserID);
   const [formState, setFormState] = useState({
     username: "",
     email: "",
     password: "",
   });
+
+  // eslint-disable-next-line
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
@@ -36,6 +40,7 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
       });
 
       Auth.login(data.addUser.token);
+      setUserID(data.login.user._id);
     } catch (e) {
       console.error(e);
     }
@@ -69,6 +74,7 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
               variant="primary"
               style={{ cursor: "pointer" }}
               type="submit"
+              onClick={handleFormSubmit}
             >
               Sign Up
             </Button>
@@ -82,7 +88,11 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
             handleFormSubmit={handleFormSubmit}
           />
 
-          <Button variant="primary" style={{ cursor: "pointer" }} type="submit">
+          <Button
+            variant="primary"
+            style={{ cursor: "pointer" }}
+            type="submit" onClick={handleFormSubmit}
+          >
             Login
           </Button>
         </Container>

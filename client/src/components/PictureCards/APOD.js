@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
@@ -7,7 +7,7 @@ import Image from 'react-bootstrap/Image'
 
 const queryClient = new QueryClient();
 
-export default function APOD(props) {
+export default function APOD() {
 
 
     return (
@@ -25,10 +25,9 @@ export default function APOD(props) {
 
 function GetAPI(){
 
-    const { isLoading, isError, data, error }= useQuery(['getPic'], async () => {
+    const { isLoading, isError, data }= useQuery(['getPic'], async () => {
         const date = new Date();
         const today = date.getFullYear() +"-"+(date.getMonth()+1)+"-"+(date.getDate() < 10 ? "0"+date.getDate() : date.getDate())
-        console.log(today);
 
         const photoData = await fetch(`https://api.nasa.gov/planetary/apod?api_key=WbDlakTXch19fafsknLbL5rjElseOcJRsyeix8r3&date=${today}`)
         if(!photoData.ok){

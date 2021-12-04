@@ -11,6 +11,7 @@ function LoginForm({ formState, handleChange, handleFormSubmit }) {
           <Form.Control
             type="email"
             placeholder="Enter email"
+            name="email"
             value={formState.email}
             onChange={handleChange}
           />
@@ -21,6 +22,7 @@ function LoginForm({ formState, handleChange, handleFormSubmit }) {
           <Form.Control
             type="password"
             placeholder="Password"
+            name="password"
             value={formState.password}
             onChange={handleChange}
           />
