@@ -82,8 +82,7 @@ function App() {
               localStorage.removeItem('id_token'),
               <Redirect to="/" />
             )} 
-            
-
+            />
           </Switch>
 
         </UserID.Provider>
