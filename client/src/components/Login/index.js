@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
 // bootstrap
+
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -21,7 +22,7 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+console.log("updating")
     setFormState({
       ...formState,
       [name]: value,
@@ -38,6 +39,7 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
 
       Auth.login(data.login.token); 
       setUserID(data.login.user._id);
+
     } catch (e) {
       console.error(e);
     }
@@ -99,7 +101,7 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
             style={{ cursor: "pointer" }}
             type="submit"
             onClick={handleFormSubmit}
-          >
+
             Login
           </Button>
         </Container>

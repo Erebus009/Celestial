@@ -13,6 +13,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+
+import Comments from "./components/Comments/index.js";
+import Favorites from "./components/Favorites/index.js";
+
 import Navbar from "./components/Navbar/index.js";
 import Auth from "./utils/auth";
 
@@ -63,6 +67,7 @@ function App() {
 
     setUserID(checkLoggedIn())
 
+
   }, [])
 
   return (
@@ -77,12 +82,13 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" render={() => (
+
               setUserID(""),
               localStorage.removeItem('id_token'),
               <Redirect to="/" />
             )} 
             
-            />
+
           </Switch>
 
         </UserID.Provider>

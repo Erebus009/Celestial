@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from 'react-bootstrap/esm/Container'
-
+import '../Footer/styles/footer.css';
 
 
 const Footer = () =>{
@@ -40,14 +40,14 @@ const Footer = () =>{
             <div className="col-md-5">
             <h5 className="text-md-right">Contact Us</h5>
                 <form>
-                    <fieldset class="form-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
+                    <fieldset className="form-group">
+                        <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter email"/>
                     </fieldset>
-                    <fieldset class="form-group">
-                        <textarea class="form-control" id="exampleMessage" placeholder="Message"></textarea>
+                    <fieldset className="form-group">
+                        <textarea className="form-control" id="exampleMessage" placeholder="Message"></textarea>
                     </fieldset>
-                    <fieldset class="form-group text-xs-right">
-                        <button type="button" class="btn btn-secondary-outline btn-lg">Send</button>
+                    <fieldset className="form-group text-xs-right">
+                        <button type="button" className="btn btn-secondary-outline btn-lg ">Send</button>
                     </fieldset>
                 </form>
             </div>
