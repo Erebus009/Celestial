@@ -40,13 +40,13 @@ setCount(count+1);
 
 
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const redirect = () => {
     if (AuthService.loggedIn()) {
       console.log("you are already logged in")
     } else{
-      history.push('/login')
+     navigate('/login')
     }
     }
 
