@@ -36,7 +36,6 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("submitting form with", formState);
 
     try {
       const { data } = await addUser({

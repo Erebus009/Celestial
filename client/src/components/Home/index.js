@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./styles/home.css";
 import ModalImage from "react-modal-image";
 
@@ -15,12 +15,10 @@ import image6 from './styles/moon1.jpeg';
 import image7 from './styles/milkyway.jpeg';
 import image8 from './styles/astronaut1.jpeg';
 import image9 from './styles/flightsky.jpg';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {useState} from 'react';
 import AuthService from '../../utils/auth';
 import TopPics from "./TopPics";
-import { UserID } from "../../App";
-
 
 const Home = () => {
 
@@ -42,21 +40,16 @@ setCount(count+1);
 
 
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const redirect = () => {
     if (AuthService.loggedIn()) {
       console.log("you are already logged in")
     } else{
-      history.push('/login')
+     navigate('/login')
     }
     }
-  
 
-  
-
-
-  const { userID } = useContext(UserID)
 
   return (
 <main style={{backgroundColor:"black"}}>

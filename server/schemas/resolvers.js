@@ -47,10 +47,13 @@ const resolvers = {
 
     addPicture: async (parent, { pictureData }, context) => {
       if (context.user) {
-        const picture = await Picture.create({ ...pictureData, postedBy: context.user.id });
+        const picture = await Picture.create({
+          ...pictureData,
+          postedBy: context.user._id,
+        });
 
         const updatedUser = User.findOneAndUpdate(
-          { _id: context.user.id },
+          { _id: context.user._id },
           {
             $push: { pictures: pictureData },
           },
@@ -60,29 +63,38 @@ const resolvers = {
         );
         return { updatedUser, picture };
       }
-      throw new AuthenticationError('Need to be logged in to post pictures');
+
+       throw new AuthenticationError("Need to be logged in to post pictures");
     },
 
-    addComment: async (parent, { PictureId, commentText, commentAuthor }) => {
-      const comment = await Comment.create({ commentText, commentAuthor });
-
-      return Picture.findOneAndUpdate(
-        { _id: PictureId },
+    addComment: async (parent, {pictureId, commentText}, context) => {
+      const comment = await Comments.create({
+        commentText
+       
+      })
+      
+      return Picture.findByIdAndUpdate(
+        { _id: pictureId },
         {
-          $addToSet: { comments: { commentText, commentAuthor } },
+          $push: { comments: { comment } },
         },
         {
           new: true,
           runValidators: true,
+          
         }
+        
       );
+      
     },
+  
+  
 
-    addFavorite: async (parent, { userId, PictureId }) => {
+    addFavorite: async (parent, { userId,pictureId }) => {
       return User.findOneAndUpdate(
         { _id: userId },
         {
-          $addToSet: { favorites: { _id: PictureId } },
+          $addToSet: { favorites: { _id: pictureId } },
         },
         {
           new: true,
@@ -93,22 +105,22 @@ const resolvers = {
     removeFavorite: async (parent, { favId }) => {
       return Favorite.findOneAndUpdate(
         { _id: favId },
-        { $pull: { favorites: { _id: favoriteId } } },
+        { $pull: { favorites: { _id: favId } } },
         { new: true }
       );
     },
 
-    removeComment: async (parent, { PictureId, commentId }) => {
+    removeComment: async (parent, {pictureId, commentId }) => {
       return Picture.findOneAndUpdate(
-        { _id: PictureId },
+        { _id:pictureId },
         { $pull: { comments: { _id: commentId } } },
         { new: true }
       );
     },
-    removePicture: async (parent, { PictureId }) => {
+    removePicture: async (parent, {pictureId }) => {
       return Picture.deleteOne(
-        { _id: PictureId },
-        { $pull: { Pictures: { _id: PictureId } } },
+        { _id: pictureId },
+        { $pull: { Pictures: { _id: pictureId } } },
         { new: true }
       );
     },

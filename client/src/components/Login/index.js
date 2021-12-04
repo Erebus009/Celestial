@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import {Redirect} from 'react-router-dom'
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
@@ -11,6 +10,7 @@ import Container from "react-bootstrap/Container";
 
 import LoginForm from "./Login";
 import { UserID } from "../../App";
+import { Navigate } from "react-router";
 
 const LoginScreen = ({ show, handleClose, isModal }) => {
   const { userID, setUserID } = useContext(UserID);
@@ -37,11 +37,6 @@ console.log("updating")
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
-
-
-    
-
       Auth.login(data.login.token); 
       setUserID(data.login.user._id);
 
@@ -58,6 +53,8 @@ console.log("updating")
 
   return (
     <>
+    {!userID ? (
+      <>
       {isModal ? (
         <Modal
           show={show}
@@ -103,11 +100,16 @@ console.log("updating")
             style={{ cursor: "pointer" }}
             type="submit"
             onClick={handleFormSubmit}
->
+          >
             Login
           </Button>
         </Container>
       )}
+      </>
+    )
+    :
+    (<Navigate to="/" />)
+    }
     </>
   );
 };

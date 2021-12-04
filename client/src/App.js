@@ -6,7 +6,9 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+
 import Home from "./components/Home";
 
 import Header from "./components/Header";
@@ -14,8 +16,8 @@ import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
-import Comments from "./components/Comments/index.js";
-import Favorites from "./components/Favorites/index.js";
+// import Comments from "./components/Comments/index.js";
+// import Favorites from "./components/Favorites/index.js";
 
 import Navbar from "./components/Navbar/index.js";
 import Auth from "./utils/auth";
@@ -29,11 +31,16 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
+  let user = "";
   // return the headers to the context so httpLink can read them
+  if(token){
+    user = Auth.getID();
+  }
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
+      userID: user, 
     },
   };
 });
@@ -72,18 +79,23 @@ function App() {
         <UserID.Provider value={{userID, setUserID}}>
           <Navbar />
 
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/login" component={Login} />
+          <Routes>
+            <Route exact path="/" element={<Home/>} />
+            <Route exact path="/signup" element={<Signup/>} />
+            <Route exact path="/login" element={<Login/>} />
+
             <Route exact path="/logout" render={() => (
 
               setUserID(""),
               localStorage.removeItem('id_token'),
-              <Redirect to="/" />
+
+              <Navigate to="/" />
             )} 
             />
-          </Switch>
+
+          </Routes>
+
+
 
         </UserID.Provider>
         <Footer />
