@@ -1,8 +1,14 @@
 import decode from 'jwt-decode';
+import {Redirect} from 'react-router-dom'
 
 class AuthService {
   getProfile() {
     return decode(this.getToken());
+  }
+
+  getID() {
+    const data = decode(this.getToken());
+    return data.data._id
   }
 
   loggedIn() {
@@ -34,7 +40,6 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.reload();
   }
 }
 

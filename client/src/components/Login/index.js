@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import {Redirect} from 'react-router-dom'
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
@@ -11,7 +12,7 @@ import LoginForm from "./Login";
 import { UserID } from "../../App";
 
 const LoginScreen = ({ show, handleClose, isModal }) => {
-  const { setUserID } = useContext(UserID);
+  const { userID, setUserID } = useContext(UserID);
   const [formState, setFormState] = useState({ email: "", password: "" });
 
   // eslint-disable-next-line

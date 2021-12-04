@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar/index.js";
+import Auth from "./utils/auth";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -22,7 +23,6 @@ const httpLink = createHttpLink({
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
 const authLink = setContext((_, { headers }) => {
-  console.log("I get run here");
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
   // return the headers to the context so httpLink can read them
@@ -40,16 +40,31 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const checkLoggedIn = () => {
+  const logged = Auth.loggedIn()
+  if(logged){
+    const ID = Auth.getID()
+    return ID
+  }
+  return ""
+}
+
 export const UserID = createContext(null);
 
 function App() {
   const [userID, setUserID] = useState("");
 
+  useEffect(() => {
+
+    setUserID(checkLoggedIn())
+
+  }, [])
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <Header />
-        <UserID.Provider value={userID, setUserID}>
+        <UserID.Provider value={{userID, setUserID}}>
           <Navbar />
 
           <Switch>
