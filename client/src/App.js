@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,18 +6,15 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Route, Switch, useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./components/Home";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Profile from "./components/Profile";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
-import Comments from "./components/Comments/index.js";
-import Favorites from "./components/Favorites/index.js";
 import Navbar from "./components/Navbar/index.js";
+import Auth from "./utils/auth";
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -43,29 +40,44 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const UserID = createContext(null);
+const checkLoggedIn = () => {
+  const logged = Auth.loggedIn()
+  if(logged){
+    const ID = Auth.getID()
+    return ID
+  }
+  return ""
+}
+
+export const UserID = createContext(null);
 
 function App() {
-  const [userName, setUserName] = useState("");
+  const [userID, setUserID] = useState("");
 
-  const navigate = useNavigate();
+  useEffect(() => {
+
+    setUserID(checkLoggedIn())
+
+  }, [])
 
   return (
     <ApolloProvider client={client}>
       <Router>
         <Header />
-        <UserID.Provider value={userName, setUserName}>
+        <UserID.Provider value={{userID, setUserID}}>
           <Navbar />
 
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/logout" component={
-              setUserName(""),
+            <Route exact path="/logout" render={() => (
+              setUserID(""),
               localStorage.removeItem('id_token'),
-              navigate("/")              
-            } />
+              <Redirect to="/" />
+            )} 
+            
+            />
           </Switch>
 
         </UserID.Provider>

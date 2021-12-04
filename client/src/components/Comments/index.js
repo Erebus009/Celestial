@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import React from 'react'
 
 
@@ -22,18 +22,6 @@ const Comments = () => {
       </comment>
     );
   };
-=======
-import React from 'react';
 
-
-
-const Comments = () => {
-  return (
-    <div className="container">
-    <h1> Comments</h1>
-    </div>
-  );
-};
->>>>>>> c2839ed2a78825c955153cf58ea979af77b51f99
 
 export default Comments;

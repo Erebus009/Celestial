@@ -2,6 +2,7 @@ import React from "react";
 import Container from "react-bootstrap/esm/Container";
 import Carousel from "react-bootstrap/Carousel";
 
+// eslint-disable-next-line
 const pictures = [
   {
     title: "title here",
@@ -12,7 +13,6 @@ const pictures = [
 ];
 
 export default function TopPics() {
-    console.log(pictures);
   return (
     <Container className="p-3 rounded text-center" fluid="md">
       <Carousel fade controls={false}>

@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { ADD_USER } from '../../utils/mutations.js';
-import Auth from '../../utils/auth.js';
+import React, { useState, useContext } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../../utils/mutations.js";
+import Auth from "../../utils/auth.js";
 // bootstrap
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
 
-const Signup = (props) => {
-  const [show, setShow] = useState(false);
+import SignupForm from "./Signup.js";
+import { UserID } from "../../App";
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+const SignupScreen = ({ show, handleClose, isModal }) => {
+  const { setUserID } = useContext(UserID);
   const [formState, setFormState] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
+
+  // eslint-disable-next-line
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
@@ -39,76 +40,65 @@ const Signup = (props) => {
       });
 
       Auth.login(data.addUser.token);
+      setUserID(data.login.user._id);
     } catch (e) {
       console.error(e);
     }
   };
-  
+
   return (
-    <>    
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Celestial ⭐</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleFormSubmit}>
+    <>
+      {isModal ? (
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Celestial ⭐</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <SignupForm
+              formState={formState}
+              handleChange={handleChange}
+              handleFormSubmit={handleFormSubmit}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              style={{ cursor: "pointer" }}
+              type="submit"
+              onClick={handleFormSubmit}
+            >
+              Sign Up
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      ) : (
+        <Container className="w-25">
+          <SignupForm
+            formState={formState}
+            handleChange={handleChange}
+            handleFormSubmit={handleFormSubmit}
+          />
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Username"
-                name="username"
-                value={formState.username}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                name="email"
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={formState.password}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button
+            variant="primary"
+            style={{ cursor: "pointer" }}
+            type="submit" onClick={handleFormSubmit}
+          >
+            Login
           </Button>
-          <Button 
-          variant="primary" 
-          style={{ cursor: "pointer" }} 
-          type="submit">
-            Sign Up
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </Container>
+      )}
     </>
   );
 };
 
-export default Signup;
+export default SignupScreen;
