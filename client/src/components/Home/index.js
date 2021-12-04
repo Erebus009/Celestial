@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./styles/home.css";
 import ModalImage from "react-modal-image";
 
@@ -19,9 +19,11 @@ import { useHistory } from 'react-router-dom';
 import {useState} from 'react';
 import AuthService from '../../utils/auth';
 import TopPics from "./TopPics";
+import { UserID } from "../../App";
 
 
 const Home = () => {
+
 
   const [count, setCount]= useState(40);
 
@@ -52,6 +54,9 @@ setCount(count+1);
   
 
   
+
+
+  const { userID } = useContext(UserID)
 
   return (
 <main style={{backgroundColor:"black"}}>
