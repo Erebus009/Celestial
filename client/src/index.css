@@ -17,7 +17,7 @@ body {
 html,body {
   position: relative;
   min-height: 100%;
-  background-image: linear-gradient( 250deg, rgb(0, 162, 255), rgb(80, 80, 80));
+  background-image: linear-gradient( 250deg, rgb(86, 181, 236),rgb(7, 5, 105));
 }
 
 i{
@@ -38,31 +38,31 @@ i{
 
 /* Sticky footer style and color
 -------------------------------------------------- */
-footer {
+.foot {
   padding-top: 30px;
-  background-color: #292c2f;
+  
   color: #bbb;
 }
 
-footer a {
-  color: #999;
+.foot a {
+  color: rgb(255, 255, 255);
   text-decoration: none;
 }
 
-footer a:hover,
-footer a:focus {
-  color: #aaa;
+.foot a:hover,
+.foot a:focus {
+  color: rgb(184, 182, 182);
   text-decoration: none;
   border-bottom: 1px dotted #999;
 }
 
-footer .form-control {
-  background-color: #1f2022;
+.foot .form-control {
+  background-color: #ececec;
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
   border: none;
   resize: none;
   margin-top: 10px;
-  color: #d1d2d2;
+  color: #000000;
   padding: 0.7em 1em;
 }
 

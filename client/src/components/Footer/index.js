@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/esm/Container'
 const Footer = () =>{
     return  (
     <Container class="footer">
-    <div class="container">
+    <div class="container foot">
         <div class="row">
             <div class="col-md-7">
                 <h5 className="display-6"><i class="fa fa-copyright"></i> Celestial</h5>
@@ -46,8 +46,8 @@ const Footer = () =>{
                     <fieldset class="form-group">
                         <textarea class="form-control" id="exampleMessage" placeholder="Message"></textarea>
                     </fieldset>
-                    <fieldset class="form-group text-xs-right">
-                        <button type="button" class="btn btn-secondary-outline btn-lg">Send</button>
+                    <fieldset class="form-group text-xs-right contianer d-flex justify-content-end">
+                        <button type="button" class="btn btn-dark btn-md text-white mt-2">Send</button>
                     </fieldset>
                 </form>
             </div>
