@@ -1,15 +1,14 @@
-
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Picture , Favorite , Comments } = require("../models");
+const { User, Picture, Favorite, Comments } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate("Pictures");
+      return User.find().populate("pictures");
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate("Pictures");
+    user: async (parent, { userId }) => {
+      return User.findOne({ _id: userId }).populate("pictures");
     },
     pictures: async (parent, { username }) => {
       const params = username ? { username } : {};
@@ -44,14 +43,28 @@ const resolvers = {
 
       return { token, user };
     },
-    addPicture: async (parent, { text, PictureAuthor,imagelink,title }) => {
-      const Picture = await Picture.create({ text, PictureAuthor, imagelink, title });
 
+    addPicture: async (parent, { pictureData }, context) => {
+      if (context.user) {
+        const picture = await Picture.create({ ...pictureData, postedBy: context.user.id });
+
+        const updatedUser = User.findOneAndUpdate(
+          { _id: context.user.id },
+          {
+            $push: { pictures: pictureData },
+          },
+          {
+            new: true,
+          }
+        );
+        return { updatedUser, picture };
+      }
+      throw new AuthenticationError('Need to be logged in to post pictures');
     },
-    
+
     addComment: async (parent, { PictureId, commentText, commentAuthor }) => {
-      const comment = await Comment.create({ commentText,commentAuthor})
-      
+      const comment = await Comment.create({ commentText, commentAuthor });
+
       return Picture.findOneAndUpdate(
         { _id: PictureId },
         {
@@ -63,29 +76,26 @@ const resolvers = {
         }
       );
     },
-    addFavorite: async (parent, {userId, PictureId}) => {
+
+    addFavorite: async (parent, { userId, PictureId }) => {
       return User.findOneAndUpdate(
-        {_id: userId},
+        { _id: userId },
         {
-          $addToSet: {favorites: { _id: PictureId }}
+          $addToSet: { favorites: { _id: PictureId } },
         },
         {
           new: true,
           runValidators: true,
         }
-
-      )
-      
+      );
     },
     removeFavorite: async (parent, { favId }) => {
       return Favorite.findOneAndUpdate(
-        { _id: favId},
+        { _id: favId },
         { $pull: { favorites: { _id: favoriteId } } },
         { new: true }
       );
     },
-
-
 
     removeComment: async (parent, { PictureId, commentId }) => {
       return Picture.findOneAndUpdate(

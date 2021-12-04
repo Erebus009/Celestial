@@ -18,6 +18,7 @@ import image9 from './styles/flightsky.jpg';
 import { useHistory } from 'react-router-dom';
 import {useState} from 'react';
 import AuthService from '../../utils/auth';
+import TopPics from "./TopPics";
 
 
 const Home = () => {
@@ -53,10 +54,14 @@ setCount(count+1);
   
 
   return (
-   
- <main className="home-container">
-    <Container className="p-3">
-      <APOD />
+<main style={{backgroundColor:"black"}}>
+    <Container>
+      <div className="mb-3">
+        <TopPics />
+      </div>
+      <div className="mb-3">
+        <APOD />
+      </div>
      <CardGroup>
       <Card>
     

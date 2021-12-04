@@ -3,8 +3,10 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
 // bootstrap
-import { Form, Button, Modal } from 'react-bootstrap';
 
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const Login = (props) => {
   const [show, setShow] = useState(true);
@@ -13,7 +15,7 @@ const Login = (props) => {
   const handleShow = () => setShow(true);
 
   const [formState, setFormState] = useState({ email: "", password: "" });
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login, { error, data }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -55,14 +57,13 @@ console.log(data)
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Sign In</Modal.Title>
+          <Modal.Title>Celestial ⭐</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleFormSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
-              name="email"
                 type="email"
                 placeholder="Enter email"
                 value={formState.email}
