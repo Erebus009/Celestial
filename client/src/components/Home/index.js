@@ -49,12 +49,7 @@ setCount(count+1);
       history.push('/login')
     }
     }
-  
 
-  
-
-
-  const { userID } = useContext(UserID)
 
   return (
 <main style={{backgroundColor:"black"}}>

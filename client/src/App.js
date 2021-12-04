@@ -14,8 +14,8 @@ import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
-import Comments from "./components/Comments/index.js";
-import Favorites from "./components/Favorites/index.js";
+// import Comments from "./components/Comments/index.js";
+// import Favorites from "./components/Favorites/index.js";
 
 import Navbar from "./components/Navbar/index.js";
 import Auth from "./utils/auth";
@@ -87,7 +87,7 @@ function App() {
               localStorage.removeItem('id_token'),
               <Redirect to="/" />
             )} 
-            
+            />
 
           </Switch>
 
