@@ -6,35 +6,34 @@ import '../Footer/styles/footer.css';
 const Footer = () =>{
     return  (
     <Container className="footer">
-    <div className="container lg">
+    <div className="container">
         <div className="row">
             <div className="col-md-7">
-                <h5 className="display-6"><i className="fa fa-copyright"></i> Celestial</h5>
-                <ul className="nav">
-                <li className="nav-item"><a href="" className="nav-link pl-0"><i className="fa fa-facebook fa-lg"></i></a></li>
-                <li className="nav-item"><a href="" className="nav-link"><i className="fa fa-twitter fa-lg"></i></a></li>
-                <li className="nav-item"><a href="" className="nav-link"><i className="fa fa-github fa-lg"></i></a></li>
-                <li className="nav-item"><a href="" className="nav-link"><i className="fa fa-instagram fa-lg"></i></a></li>
-            </ul>
+                <h5 className="display-6"><i class="fa fa-copyright"></i> Celestial</h5>
                 <div className="row">
                     <div className="col-6">
                         <ul className="list-unstyled">
-                            <li><a href="">Mission</a></li>
-                            <li><a href="">Goal</a></li>
-                            <li><a href="">Partners</a></li>
-                            <li><a href="">Team</a></li>
+                            <li><a href="/">Mission</a></li>
+                            <li><a href="/">Goal</a></li>
+                            <li><a href="/">Partners</a></li>
+                            <li><a href="/">Team</a></li>
                         </ul>
                     </div>
                     <div className="col-6">
                         <ul className="list-unstyled">
-                            <li><a href="">Documentation</a></li>
-                            <li><a href="">Support</a></li>
-                            <li><a href="">Legal Terms</a></li>
-                            <li><a href="">About</a></li>
+                            <li><a href="/">Documentation</a></li>
+                            <li><a href="/">Support</a></li>
+                            <li><a href="/">Legal Terms</a></li>
+                            <li><a href="/">About</a></li>
                         </ul>
                     </div>
                 </div>
-
+                <ul className="nav">
+                    <li class="nav-item"><a href="/" class="nav-link pl-0"><i class="fa fa-facebook fa-lg"></i></a></li>
+                    <li class="nav-item"><a href="/" class="nav-link"><i class="fa fa-twitter fa-lg"></i></a></li>
+                    <li class="nav-item"><a href="/" class="nav-link"><i class="fa fa-github fa-lg"></i></a></li>
+                    <li class="nav-item"><a href="/" class="nav-link"><i class="fa fa-instagram fa-lg"></i></a></li>
+                </ul>
                 <br></br>
             </div>
            

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import {Redirect} from 'react-router-dom'
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../../utils/mutations.js";
 import Auth from "../../utils/auth.js";
@@ -11,6 +10,7 @@ import Container from "react-bootstrap/Container";
 
 import LoginForm from "./Login";
 import { UserID } from "../../App";
+import { Redirect } from "react-router";
 
 const LoginScreen = ({ show, handleClose, isModal }) => {
   const { userID, setUserID } = useContext(UserID);
@@ -37,11 +37,6 @@ console.log("updating")
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
-
-
-    
-
       Auth.login(data.login.token); 
       setUserID(data.login.user._id);
 
@@ -57,55 +52,10 @@ console.log("updating")
   };
 
   return (
-
-    <>    
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Celestial ⭐</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <Form.Text className="">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-              name="password"
-                type="password"
-                placeholder="Password"
-                value={formState.password}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button 
-          variant="primary" 
-          onClick={handleFormSubmit}
-          style={{ cursor: "pointer" }} 
-          type="submit">
-
+    
     <>
+    {!userID ? (
+      <>
       {isModal ? (
         <Modal
           show={show}
@@ -151,11 +101,16 @@ console.log("updating")
             style={{ cursor: "pointer" }}
             type="submit"
             onClick={handleFormSubmit}
-
+          >
             Login
           </Button>
         </Container>
       )}
+      </>
+    )
+    :
+    (<Redirect to="/" />)
+    }
     </>
   );
 };

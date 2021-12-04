@@ -14,8 +14,8 @@ import Footer from "./components/Footer";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
-import Comments from "./components/Comments/index.js";
-import Favorites from "./components/Favorites/index.js";
+// import Comments from "./components/Comments/index.js";
+// import Favorites from "./components/Favorites/index.js";
 
 import Navbar from "./components/Navbar/index.js";
 import Auth from "./utils/auth";
@@ -29,11 +29,16 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
+  let user = "";
   // return the headers to the context so httpLink can read them
+  if(token){
+    user = Auth.getID();
+  }
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
+      userID: user, 
     },
   };
 });
@@ -82,7 +87,7 @@ function App() {
               localStorage.removeItem('id_token'),
               <Redirect to="/" />
             )} 
-            
+            />
 
           </Switch>
 

@@ -11,6 +11,11 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({req}) => {
+    const user = req.headers.userID || '';
+    // if (!user) throw new AuthorizationError('you must be logged in');
+    return { user }; 
+  },
 });
 
 server.applyMiddleware({ app });
