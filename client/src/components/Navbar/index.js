@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from "react-bootstrap/Navbar";
 import Container  from 'react-bootstrap/Container';
 // import Nav from  'react-bootstrap/Nav';
@@ -9,8 +9,19 @@ import ImageBrand from 'react-bootstrap/Image';
 import Logo from'../Navbar/styles/logo123.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import LoginScreen from '../Login';
+import SignupScreen from '../Signup'
 
 function NavBar() {
+  const [loginShow, setShowLogin] = useState(false)
+  const hideLogin = () => setShowLogin(false)
+  const showLogin = () => setShowLogin(true)
+
+  const [signUpShow, setSignUpShow] = useState(false)
+  const hideSignUp = () => setSignUpShow(false)
+  const showSignUp = () => setSignUpShow(true)
+
+
   return (
   
     <Navbar className="navRight" bg="dark" variant="dark" id="navItem" expand="lg">
@@ -37,10 +48,12 @@ function NavBar() {
         <Link className="text-dark" to="/"> 
         <h1 className="homeLogo"></h1>
         </Link>
-        <Link className="text-dark" to="/login"> 
-        <h1 className="loginNav">Login</h1>
+        <LoginScreen show={loginShow} handleClose={hideLogin} isModal={true}/>
+        <Link className="text-dark" onClick={showLogin} to="">
+        <h1 className="signupNav">Login</h1>
         </Link>
-        <Link className="text-dark" to="/signup"> 
+        <SignupScreen show={signUpShow} handleClose={hideSignUp} isModal={true} />
+        <Link className="text-dark" onClick={showSignUp} to=""> 
         <h1 className="signupNav">Signup</h1>
         </Link> 
         <Link className="text-dark" to="/logout"> 

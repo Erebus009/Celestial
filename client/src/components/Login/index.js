@@ -7,11 +7,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const Login = (props) => {
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const LoginScreen = ({show, handleClose, isModal}) => {
+  
 
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
@@ -48,7 +45,9 @@ const Login = (props) => {
   };
 
   return (
-    <>    
+    
+    <>  
+    {isModal ? (  
       <Modal
         show={show}
         onHide={handleClose}
@@ -93,8 +92,17 @@ const Login = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
+          )
+
+          :
+          (
+
+            <h1>Login Page</h1>
+          )}
     </>
+
+
   );
 };
 
-export default Login;
+export default LoginScreen;

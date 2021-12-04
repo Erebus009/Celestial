@@ -7,11 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const Signup = (props) => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const SignupScreen = ({show, handleClose, isModal}) => {
 
   const [formState, setFormState] = useState({
     username: '',
@@ -46,6 +42,7 @@ const Signup = (props) => {
   
   return (
     <>    
+    {isModal ? (
       <Modal
         show={show}
         onHide={handleClose}
@@ -107,8 +104,13 @@ const Signup = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
+    )
+    :
+    (
+      <h1>Sign Up page</h1>
+    )}
     </>
   );
 };
 
-export default Signup;
+export default SignupScreen;
