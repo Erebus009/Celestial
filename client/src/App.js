@@ -30,7 +30,6 @@ const authLink = setContext((_, { headers }) => {
   if(token){
     user = Auth.getID();
   }
-  console.log("before return");
   return {
     headers: {
       ...headers,

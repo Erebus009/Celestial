@@ -36,8 +36,6 @@ const LoginScreen = ({ show, handleClose, isModal }) => {
         variables: { ...formState },
       });
 
-      console.log(data);
-
       Auth.login(data.login.token); 
       setUserID(data.login.user._id);
     } catch (e) {
