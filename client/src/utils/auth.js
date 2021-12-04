@@ -5,6 +5,11 @@ class AuthService {
     return decode(this.getToken());
   }
 
+  getID() {
+    const data = decode(this.getToken());
+    return data.data._id
+  }
+
   loggedIn() {
     const token = this.getToken();
     // If there is a token and it's not expired, return `true`
@@ -34,7 +39,6 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
-    window.location.reload();
   }
 }
 

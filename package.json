@@ -1,33 +1,21 @@
 {
-  "name": "stellar_portrait",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "concurrently": "^6.4.0"
-  },
+  "name": "celestial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/server.js",
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd client && npm run build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "react-modal-image": "^2.5.0"
   }
 }
