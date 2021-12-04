@@ -5,10 +5,12 @@ import '../Footer/styles/footer.css';
 
 const Footer = () =>{
     return  (
-    <Container className="footer">
-    <div className="container">
-        <div className="row">
-            <div className="col-md-7">
+
+    <Container class="footer">
+    <div class="container foot">
+        <div class="row">
+            <div class="col-md-7">
+
                 <h5 className="display-6"><i class="fa fa-copyright"></i> Celestial</h5>
                 <div className="row">
                     <div className="col-6">
@@ -46,8 +48,10 @@ const Footer = () =>{
                     <fieldset className="form-group">
                         <textarea className="form-control" id="exampleMessage" placeholder="Message"></textarea>
                     </fieldset>
-                    <fieldset className="form-group text-xs-right">
-                        <button type="button" className="btn btn-secondary-outline btn-lg ">Send</button>
+
+                    <fieldset class="form-group text-xs-right contianer d-flex justify-content-end">
+                        <button type="button" class="btn btn-dark btn-md text-white mt-2">Send</button>
+
                     </fieldset>
                 </form>
             </div>

@@ -10,7 +10,7 @@ import Container from "react-bootstrap/Container";
 
 import LoginForm from "./Login";
 import { UserID } from "../../App";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 
 const LoginScreen = ({ show, handleClose, isModal }) => {
   const { userID, setUserID } = useContext(UserID);
@@ -109,7 +109,7 @@ console.log("updating")
       </>
     )
     :
-    (<Redirect to="/" />)
+    (<Navigate to="/" />)
     }
     </>
   );

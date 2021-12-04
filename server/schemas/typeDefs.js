@@ -27,7 +27,6 @@ const typeDefs = gql`
   type Comment {
     _id: ID
     commentText: String
-    commentAuthor: String
     createdAt: String
   }
 
@@ -50,9 +49,8 @@ const typeDefs = gql`
     addPicture(title: String!, text: String!, imagelink: String!): Picture
 
     addComment(
-      pictureId: ID!
-      commentText: String!
-      commentAuthor: String!
+    commentText: String!
+    pictureId: ID!
     ): Picture
 
     addFavorite(pictureId: ID!, userId: ID!): Picture

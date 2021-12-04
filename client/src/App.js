@@ -6,7 +6,9 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+
 import Home from "./components/Home";
 
 import Header from "./components/Header";
@@ -77,19 +79,23 @@ function App() {
         <UserID.Provider value={{userID, setUserID}}>
           <Navbar />
 
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/login" component={Login} />
+          <Routes>
+            <Route exact path="/" element={<Home/>} />
+            <Route exact path="/signup" element={<Signup/>} />
+            <Route exact path="/login" element={<Login/>} />
+
             <Route exact path="/logout" render={() => (
 
               setUserID(""),
               localStorage.removeItem('id_token'),
-              <Redirect to="/" />
+
+              <Navigate to="/" />
             )} 
             />
 
-          </Switch>
+          </Routes>
+
+
 
         </UserID.Provider>
         <Footer />
