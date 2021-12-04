@@ -1,19 +1,15 @@
 
-
 #navItem{
     color:rgb(255, 255, 255) !important;
 }
 
 
-/*  */#navbar-container{
+#navbar-container{
     align-content:space-between;
 
     justify-content: end;
   
 }
-
-
-
 
 .loginNav{
    font-size: 20px;

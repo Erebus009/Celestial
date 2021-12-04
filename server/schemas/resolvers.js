@@ -47,12 +47,8 @@ const resolvers = {
     addPicture: async (parent, { text, PictureAuthor,imagelink,title }) => {
       const Picture = await Picture.create({ text, PictureAuthor, imagelink, title });
 
-      await User.findOneAndUpdate(
-        { username: PictureAuthor },
-        { $addToSet: { Pictures: Picture._id } }
-      );
-      return Picture;
     },
+    
     addComment: async (parent, { PictureId, commentText, commentAuthor }) => {
       const comment = await Comment.create({ commentText,commentAuthor})
       
