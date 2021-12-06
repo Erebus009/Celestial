@@ -24,8 +24,8 @@ export const ADD_USER = gql`
   }
 `;
 
-export const addPicture = gql`
-mutation addPicture($text:String!, $pictureAuthor:String!,$imagelink:String!, $title:String!){
+export const ADD_PICTURE = gql`
+mutation addPicture($text:String!,$imagelink:String!, $title:String!){
   addPicture(text:$text, imagelink:$imagelink,title:$title){
       _id
       text
