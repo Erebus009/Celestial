@@ -54,6 +54,7 @@ const SignupScreen = ({ show, handleClose, isModal }) => {
     <>
       {isModal ? (
         <Modal
+          style={{opacity:1}}
           show={show}
           onHide={handleClose}
           backdrop="static"

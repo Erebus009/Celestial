@@ -13,6 +13,7 @@ import Home from "./components/Home";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Profile from "./components/Profile"
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
@@ -49,6 +50,7 @@ const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+ 
 });
 
 const checkLoggedIn = () => {
@@ -80,12 +82,14 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route exact path="/" element={<Home/>} />
-            <Route exact path="/signup" element={<Signup/>} />
-            <Route exact path="/login" element={<Login/>} />
-
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/profile" element={<Profile />} />
+            
             <Route exact path="/logout" render={() => (
 
+              // eslint-disable-next-line no-sequences
               setUserID(""),
               localStorage.removeItem('id_token'),
 
