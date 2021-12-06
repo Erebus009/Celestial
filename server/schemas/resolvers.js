@@ -7,8 +7,10 @@ const resolvers = {
     users: async () => {
       return User.find().populate("pictures");
     },
-    user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId }).populate("pictures");
+    user: async (parent, { userID }, context) => {
+      
+      return User.findOne({ _id: userID}).populate("pictures");
+      
     },
     allPictures: async() =>{
       return Picture.find().sort({createdAt: -1});
@@ -16,10 +18,10 @@ const resolvers = {
   
     pictures: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Picture.find(params).sort({ createdAt: -1 }).populate("Comments");
+      return Picture.find(params).sort({ createdAt: -1 }).populate("Comments")
     },
     picture: async (parent, { pictureId }) => {
-      return Picture.findOne({ _id: pictureId }).populate("Comments");
+      return Picture.findOne({ _id: pictureId }).populate("Comments")
     },
   },
   //  User AUTH mutation
@@ -49,17 +51,20 @@ const resolvers = {
       return { token, user };
     },
 
-    addPicture: async (parent, { pictureData }, context) => {
-      if (context.user) {
+    addPicture: async (parent, { imagelink,text,title }, context) => {
+      console.log(imagelink,title,text)
+      if (context.userID) {
         const picture = await Picture.create({
-          ...pictureData,
-          postedBy: context.user._id,
+          imagelink: imagelink,
+          title: title,
+          text: text,
+          postedBy: context.userID,
         });
 
-        const updatedUser = User.findOneAndUpdate(
-          { _id: context.user._id },
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.userID},
           {
-            $push: { pictures: pictureData },
+            $push: { pictures: picture._id},
           },
           {
             new: true,
@@ -67,8 +72,9 @@ const resolvers = {
         );
         return { updatedUser, picture };
       }
+      
 
-       throw new AuthenticationError("Need to be logged in to post pictures");
+        throw new AuthenticationError("Need to be logged in to post pictures");
     },
 
     addComment: async (parent, {pictureId, commentText}, context) => {

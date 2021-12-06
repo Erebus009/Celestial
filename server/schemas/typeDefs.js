@@ -12,12 +12,13 @@ const typeDefs = gql`
   }
   type Picture {
     _id: ID
-    userId: ID
+    postedBy: ID
     text: String
     title: String
     imagelink: String
     createdAt: String
     comments: [Comment]!
+    commentcount: String
   }
   type Favorite {
     _id: ID
@@ -37,10 +38,10 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
-    user(username: String!): User
+    user(userID: ID!): User
     allPictures(offset:Int,limit:Int): [Picture]!
     pictures: [Picture]!
-    picture(PictureId: ID!): Picture
+    picture(pictureId: ID!): Picture
   }
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth

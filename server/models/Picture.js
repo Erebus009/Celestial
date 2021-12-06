@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const pictureSchema = new Schema({
-  
   title: {
     type: String,
     trim: true,
@@ -23,11 +22,12 @@ const pictureSchema = new Schema({
     required: true,
     trim: true,
   },
-  postedBy: {
+  postedBy: [
+    {
     type: Schema.Types.ObjectId,
-    ref: "User"
-  },
-  
+    ref: "User",
+    },
+  ],
 
   comments: [
     {
@@ -35,6 +35,19 @@ const pictureSchema = new Schema({
       ref: "Comment",
     },
   ],
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+}
+
+
+
+
+);
+pictureSchema.virtual('commentcount').get(function () {
+  return this.comments.length;
 });
 
 const Picture = model("Picture", pictureSchema);

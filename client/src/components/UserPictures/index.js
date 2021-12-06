@@ -22,7 +22,7 @@ const UserPictures = ({ allPictures }) => {
         }
       };
 
-    const [count, setCount]= useState(40);
+    const [count, setCount]= useState(30);
 
     const counter = ()=>{
   
@@ -77,7 +77,7 @@ return (
           </Card.Text>
         </Card.Body>
         <div className="container">
-          <button className="btn btn-dark btn-sm text-white"onClick={redirect}>Comments</button>
+          <button className="btn btn-dark btn-sm text-white"onClick={redirect}>{picture.commentcount}</button>
         </div>
         <Card.Footer>
           <small className="text-muted">Last updated ({picture.createdAt})</small>

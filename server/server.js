@@ -12,7 +12,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({req}) => {
-    const userID = req.headers.userID || '';
+    const userID = req.headers.userid || '';
     // if (!user) throw new AuthorizationError('you must be logged in');
     return { userID }; 
   },

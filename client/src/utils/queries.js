@@ -31,8 +31,14 @@ query getPictures($offset:Int,$limit:Int){
     title
     imagelink
     createdAt
+    comments{
+      commentText
+    }
+    commentcount
   }
 
 }`
+
+//export const QUERY_USERPICTURES = gql``
 
 
