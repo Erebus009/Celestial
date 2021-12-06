@@ -5,7 +5,6 @@ import { QUERY_PICTURE } from "../../utils/queries";
 
 export default function PictureID() {
   const location = useLocation();
-  console.log(location);
   const index = location.pathname.split('/')
   const locationPic = index.pop()
 
@@ -24,7 +23,10 @@ export default function PictureID() {
   return (
   
   <div>
-      {loading ? <h1>Picture page</h1> : <h1>Pictures here</h1>}
+      {loading ?
+       <h1>Picture page...</h1> : 
+
+       <h1>Pictures here</h1>}
     </div>
     );
 }
