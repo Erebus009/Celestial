@@ -6,7 +6,11 @@ const favoriteScehma = new Schema ({
         type: Date,
         default: Date.now()
     },
-    pictures: {
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    picture: {
         type: Schema.Types.ObjectId,
         ref: "Picture"
     }

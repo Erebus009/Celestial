@@ -35,6 +35,7 @@ query getPictures($offset:Int,$limit:Int){
       commentText
     }
     commentcount
+    favcount
   }
 
 }`
