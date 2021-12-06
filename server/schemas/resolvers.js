@@ -22,10 +22,10 @@ const resolvers = {
   
     pictures: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Picture.find(params).sort({ createdAt: -1 }).populate("Comments")
+      return Picture.find(params).sort({ createdAt: -1 })
     },
     picture: async (parent, { pictureId }) => {
-      const pic = await Picture.findOne({ _id: pictureId }).populate("Comments")
+      const pic = await Picture.findOne({ _id: pictureId }).populate("Comments").populate("commentAuthor")
       console.log(pic)
       return pic
     },

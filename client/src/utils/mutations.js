@@ -50,7 +50,7 @@ mutation addFavorite($picID:ID!){
     commentcount
     favcount
   }
-  }
+  
 }
-`
+`;
 
