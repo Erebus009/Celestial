@@ -1,17 +1,17 @@
 [
   {
-    "title": "Moon walking",
-    "text": "Man on the moon",
+    "title": "Hubble",
+    "text": "Hubble space telescope picture of the universe",
+    "imagelink": "https://media.wired.com/photos/5b7f64cbbe2f8d3a624b77b2/master/w_960,c_limit/SPoW_82318_01.jpg"
+  },
+  {
+    "title": "Andromeda Galaxy",
+    "text": "Galaxy neighbors in the vast cosmos",
     "imagelink": "https://whyy.org/wp-content/uploads/2019/07/aldrin-768x547.jpg"
   },
   {
     "title": "Moon walking",
-    "text": "Man on the moon",
-    "imagelink": "https://whyy.org/wp-content/uploads/2019/07/aldrin-768x547.jpg"
-  },
-  {
-    "title": "Moon walking",
-    "text": "Man on the moon",
+    "text": "First lunar walk made by humans",
     "imagelink": "https://whyy.org/wp-content/uploads/2019/07/aldrin-768x547.jpg"
   }
 ]
