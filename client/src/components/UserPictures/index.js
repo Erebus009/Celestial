@@ -43,9 +43,6 @@ const timeStamp = (epochTime) => {
   return myDate
 }
 
-
-
-
 return (
     <div className="container.fluid card-box ">
         {allPictures &&
@@ -65,11 +62,11 @@ return (
           <div className="star-container">
        <div className="starLike">
          <i className="fas fa-star starIcon" onClick={counter}></i>
-          <span>{count}</span>
+          <span>{picture.favcount} favorites</span>
        </div>
        <div className="arrowDown">
          <i className="fas fa-arrow-alt-circle-down arrowIcon" onClick={downArrow}></i>
-         <span>{dislike}</span>
+         <span>{picture.commentcount} comments</span>
          </div>
          </div>
           <Card.Text className="py-4">

@@ -8,8 +8,12 @@ const resolvers = {
       return User.find().populate("pictures");
     },
     user: async (parent, { userID }, context) => {
+      console.log(userID)
       
-      return User.findOne({ _id: userID}).populate("pictures");
+      const user = User.findOne({ _id: userID});
+
+      await user.populate("favorites").populate("comments").populate("pictures")
+       return user
       
     },
     allPictures: async() =>{
@@ -21,7 +25,9 @@ const resolvers = {
       return Picture.find(params).sort({ createdAt: -1 }).populate("Comments")
     },
     picture: async (parent, { pictureId }) => {
-      return Picture.findOne({ _id: pictureId }).populate("Comments")
+      const pic = await Picture.findOne({ _id: pictureId }).populate("Comments")
+      console.log(pic)
+      return pic
     },
   },
   //  User AUTH mutation
@@ -100,17 +106,41 @@ const resolvers = {
   
   
 
-    addFavorite: async (parent, { userId,pictureId }) => {
-      return User.findOneAndUpdate(
-        { _id: userId },
-        {
-          $addToSet: { favorites: { _id: pictureId } },
-        },
-        {
-          new: true,
-          runValidators: true,
+    addFavorite: async (parent, { pictureId }, context) => {
+      if (context.userID) {
+
+        const user = await User.findOne({
+          _id: context.userID,
+        })
+
+        console.log(user)
+
+        if(!user.favorites.some((fav) => fav._id === pictureId)){
+
+          user.favorites.push(pictureId)
+          user.save()
+
+          const pic = Picture.findOneAndUpdate(
+            { _id: pictureId },
+            {
+              $addToSet: { favorited: { _id: context.userID } },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          )
+
+          return pic
+
         }
-      );
+
+        // throw new AuthenticationError("You already favorited this picture!");
+
+      }
+
+      throw new AuthenticationError("Need to be logged in to post pictures");
+
     },
     removeFavorite: async (parent, { favId }) => {
       return Favorite.findOneAndUpdate(
