@@ -5,10 +5,9 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    password: String
     pictures: [Picture]!
     comments: [Comment]!
-    favorites: [Favorite]!
+    favorites: [Picture]!
   }
   type Picture {
     _id: ID
@@ -19,10 +18,11 @@ const typeDefs = gql`
     createdAt: String
     comments: [Comment]!
     commentcount: String
+    favcount: String
   }
   type Favorite {
     _id: ID
-    user: [User]!
+    user: [Picture]!
   }
 
   type Comment {
@@ -55,7 +55,7 @@ const typeDefs = gql`
     pictureId: ID!
     ): Picture
 
-    addFavorite(pictureId: ID!, userId: ID!): Picture
+    addFavorite(pictureId: ID!): Picture
 
     removeComment(pictureId: ID!, commentId: ID!): Picture
 

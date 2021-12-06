@@ -28,13 +28,13 @@ const userSchema = new Schema({
   favorites:[
     {
       type: Schema.Types.ObjectId,
-      ref: "Favorite"
+      ref: "Picture"
     }
   ],
   comments:[
     {
       type: Schema.Types.ObjectId,
-      ref: "Comment"
+      ref: "Comments"
     }
   ]
 

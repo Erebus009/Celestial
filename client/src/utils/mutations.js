@@ -37,13 +37,19 @@ mutation addPicture($text:String!,$imagelink:String!, $title:String!){
 
 `;
 export const addFavorite = gql`
-mutation addFavorite($_id:ID!){
-  addFavorite(_id:$_id){
-    user{
-      favroites{
-        _id
-      }
+mutation addFavorite($picID:ID!){
+  addFavorite(pictureId:$picID){
+    _id
+    text
+    title
+    imagelink
+    createdAt
+    comments{
+      commentText
     }
+    commentcount
+    favcount
+  }
   }
 }
 `
