@@ -54,3 +54,17 @@ justify-content:space-between;
   color:rgb(252, 6, 6);
  
 }
+
+.card-box{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  width: 100%;
+  
+}
+.grid-item img{
+ width: 450px;
+ height: 350px;
+}

@@ -23,4 +23,16 @@ export const QUERY_USER = gql`
  
 `;
 
+export const QUERY_PICTURES = gql`
+query getPictures($offset:Int,$limit:Int){
+  allPictures(offset:$offset, limit:$limit){
+    _id
+    text
+    title
+    imagelink
+    createdAt
+  }
+
+}`
+
 

@@ -58,6 +58,7 @@ console.log("updating")
       <>
       {isModal ? (
         <Modal
+          style={{opacity:1}}
           show={show}
           onHide={handleClose}
           backdrop="static"

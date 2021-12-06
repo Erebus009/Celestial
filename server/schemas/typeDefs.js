@@ -38,6 +38,7 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
+    allPictures(offset:Int,limit:Int): [Picture]!
     pictures: [Picture]!
     picture(PictureId: ID!): Picture
   }

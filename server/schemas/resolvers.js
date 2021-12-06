@@ -10,6 +10,10 @@ const resolvers = {
     user: async (parent, { userId }) => {
       return User.findOne({ _id: userId }).populate("pictures");
     },
+    allPictures: async() =>{
+      return Picture.find().sort({createdAt: -1});
+    },
+  
     pictures: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Picture.find(params).sort({ createdAt: -1 }).populate("Comments");
