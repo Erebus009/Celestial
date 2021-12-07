@@ -40,6 +40,26 @@ query getPictures($offset:Int,$limit:Int){
 
 }`
 
-//export const QUERY_USERPICTURES = gql``
+export const QUERY_PICTURE = gql`
+query picture($pictureId:ID!){
+  picture(pictureId:$pictureId){
+    _id
+    postedBy
+    text
+    title
+    imagelink
+    createdAt
+    comments{
+      commentText
+      commentAuthor{
+        username
+      }
+      createdAt
+    }
+    commentcount
+    favcount
+  }
+
+}`
 
 
