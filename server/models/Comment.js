@@ -13,6 +13,10 @@ const commentSchema = new Schema ({
       type: Schema.Types.ObjectId,
       ref: "User"
       
+    },
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: "Picture"
       
     },
     createdAt: {
@@ -22,6 +26,6 @@ const commentSchema = new Schema ({
   
 })
 
-const Comments = model("Comments",commentSchema)
+const Comments = model("Comments", commentSchema)
 
 module.exports = Comments

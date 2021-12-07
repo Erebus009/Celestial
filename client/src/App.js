@@ -16,7 +16,8 @@ import Footer from "./components/Footer";
 import Profile from "./components/Profile"
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import PictureID from "./components/Picture/PictureID";
+import PictureID from './components/Picture/PictureID'
+
 // import Comments from "./components/Comments/index.js";
 // import Favorites from "./components/Favorites/index.js";
 
@@ -87,6 +88,7 @@ function App() {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route path="/pictures/:pictureid" element={<PictureID />} />
+            
             <Route exact path="/logout" render={() => (
 
               // eslint-disable-next-line no-sequences

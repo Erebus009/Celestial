@@ -49,8 +49,20 @@ mutation addFavorite($picID:ID!){
     }
     commentcount
     favcount
+  }
   
+}
+`;
+
+export const ADD_COMMENT = gql`
+mutation addComment($pictureId: ID!, $commentText: String){
+  addComment(pictureId: $pictureId, commentText: $commentText){
+    commentAuthor{
+      _id
+      username
+    }
+    commentText
+    createdAt
   }
 }
-`
-
+`;

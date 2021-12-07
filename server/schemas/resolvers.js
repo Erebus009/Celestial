@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Picture, Favorite, Comments } = require("../models");
-const { signToken } = require("../utils/auth");
+const { signToken, checkToken} = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -8,26 +8,34 @@ const resolvers = {
       return User.find().populate("pictures");
     },
     user: async (parent, { userID }, context) => {
-      console.log(userID)
-      
-      const user = User.findOne({ _id: userID});
+      console.log(userID);
 
-      await user.populate("favorites").populate("comments").populate("pictures")
-       return user
-      
+      const user = User.findOne({ _id: userID });
+
+      await user
+        .populate("favorites")
+        .populate("comments")
+        .populate("pictures");
+      return user;
     },
-    allPictures: async() =>{
-      return Picture.find().sort({createdAt: -1});
+
+    allPictures: async () => {
+      return Picture.find().sort({ createdAt: -1 });
     },
-  
+
     pictures: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Picture.find(params).sort({ createdAt: -1 }).populate("Comments")
+      return Picture.find(params).sort({ createdAt: -1 });
     },
+
     picture: async (parent, { pictureId }) => {
-      const pic = await Picture.findOne({ _id: pictureId }).populate("Comments")
-      console.log(pic)
-      return pic
+      const pic = await Picture.findOne({ _id: pictureId }).populate({
+        path: "comments",
+        populate: {
+          path: "commentAuthor",
+        },
+      });
+      return pic.populate("commentAuthor");
     },
   },
   //  User AUTH mutation
@@ -57,8 +65,8 @@ const resolvers = {
       return { token, user };
     },
 
-    addPicture: async (parent, { imagelink,text,title }, context) => {
-      console.log(imagelink,title,text)
+    addPicture: async (parent, { imagelink, text, title }, context) => {
+      console.log(imagelink, title, text);
       if (context.userID) {
         const picture = await Picture.create({
           imagelink: imagelink,
@@ -68,57 +76,29 @@ const resolvers = {
         });
 
         const updatedUser = await User.findOneAndUpdate(
-          { _id: context.userID},
+          { _id: context.userID },
           {
-            $push: { pictures: picture._id},
+            $push: { pictures: picture._id },
           },
           {
             new: true,
           }
         );
-        return { updatedUser, picture };
+        return picture;
       }
-      
-
-        throw new AuthenticationError("Need to be logged in to post pictures");
     },
 
-    addComment: async (parent, {pictureId, commentText}, context) => {
-      const comment = await Comments.create({
-        commentText
-       
-      })
-      
-      return Picture.findByIdAndUpdate(
-        { _id: pictureId },
-        {
-          $push: { comments: { comment } },
-        },
-        {
-          new: true,
-          runValidators: true,
-          
-        }
-        
-      );
-      
-    },
-  
-  
-
-    addFavorite: async (parent, { pictureId }, context) => {
+       addFavorite: async (parent, { pictureId }, context) => {
       if (context.userID) {
-
         const user = await User.findOne({
           _id: context.userID,
-        })
+        });
 
-        console.log(user)
+        console.log(user);
 
-        if(!user.favorites.some((fav) => fav._id === pictureId)){
-
-          user.favorites.push(pictureId)
-          user.save()
+        if (!user.favorites.some((fav) => fav._id === pictureId)) {
+          user.favorites.push(pictureId);
+          user.save();
 
           const pic = Picture.findOneAndUpdate(
             { _id: pictureId },
@@ -129,19 +109,52 @@ const resolvers = {
               new: true,
               runValidators: true,
             }
-          )
+          );
 
-          return pic
-
+          return pic;
         }
 
         // throw new AuthenticationError("You already favorited this picture!");
-
       }
 
       throw new AuthenticationError("Need to be logged in to post pictures");
-
     },
+    addComment: async (parent, { pictureId, commentText }, {authorization}) => {
+      const { _id: authUser} = checkToken(authorization)
+      if (authUser) {
+          const comment = await Comments.create({
+            commentText: commentText,
+            commentAuthor: authUser,
+            post: pictureId,
+          });
+
+          const user = await User.findByIdAndUpdate(
+            { _id: authUser },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+
+          const pic = await Picture.findByIdAndUpdate(
+            { _id: pictureId },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+          return await Comments.findOne({_id: comment._id}).populate("commentAuthor");
+        };
+      throw new AuthenticationError("Need to be logged in to post comments");
+    },
+
+
     removeFavorite: async (parent, { favId }) => {
       return Favorite.findOneAndUpdate(
         { _id: favId },
@@ -150,14 +163,14 @@ const resolvers = {
       );
     },
 
-    removeComment: async (parent, {pictureId, commentId }) => {
+    removeComment: async (parent, { pictureId, commentId }) => {
       return Picture.findOneAndUpdate(
-        { _id:pictureId },
+        { _id: pictureId },
         { $pull: { comments: { _id: commentId } } },
         { new: true }
       );
     },
-    removePicture: async (parent, {pictureId }) => {
+    removePicture: async (parent, { pictureId }) => {
       return Picture.deleteOne(
         { _id: pictureId },
         { $pull: { Pictures: { _id: pictureId } } },
