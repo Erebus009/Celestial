@@ -48,8 +48,10 @@ query picture($pictureId:ID!){
     imagelink
     createdAt
     comments{
+      _id
       commentText
       commentAuthor{
+        _id
         username
       }
       createdAt

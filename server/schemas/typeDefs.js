@@ -51,11 +51,11 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
 
     addPicture(title: String!, text: String!, imagelink: String!): Picture
-    addComment(pictureId: ID!, commentText: String): Picture
+    addComment(pictureId: ID!, commentText: String): Comment
 
     addFavorite(pictureId: ID!): Picture
 
-    removeComment(pictureId: ID!, commentId: ID!): Picture
+    removeComment(pictureId: ID!, commentId: ID!): Comment
 
     removePicture(pictureId: ID!): Picture
 

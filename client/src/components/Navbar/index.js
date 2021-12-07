@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 // import Nav from  'react-bootstrap/Nav';
@@ -9,11 +9,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import LoginScreen from "../Login";
 import SignupScreen from "../Signup";
-import { UserID } from "../../App";
+import Auth from '../../utils/auth'
+
 
 function NavBar() {
-  const { userID } = useContext(UserID);
-
   const [loginShow, setShowLogin] = useState(false);
   const hideLogin = () => setShowLogin(false);
   const showLogin = () => setShowLogin(true);
@@ -46,7 +45,7 @@ function NavBar() {
           className="justify-content-end ml-3"
           id="basic-navbar-nav"
         >
-          {!userID ? (
+          {!Auth.loggedIn() ? (
             <>
               <LoginScreen
                 show={loginShow}
