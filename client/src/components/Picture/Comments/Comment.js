@@ -5,8 +5,8 @@ const Comment = ({ comment, deleteComment }) => {
   const canDelete =
     Auth.loggedIn() &&
     Auth.getProfile().data._id === comment.commentAuthor._id;
-
-  const createdAt = new Date(comment.createdAt).toLocaleDateString();
+  const unixTime = comment.createdAt
+  const createdAt = (unixTime * 1)
 
   return (
   <div key={comment._id} className="comment">
@@ -20,7 +20,7 @@ const Comment = ({ comment, deleteComment }) => {
       <div className="comment-content">
         <div className="comment-author">Posted by: {comment.commentAuthor.username}</div>
         <div>{comment.commentText}</div>
-        <div>Posted on: {createdAt}</div>
+        <div>Posted on: {(new Date(createdAt)).toLocaleString()}</div>
       </div>
       <div className="comment-actions">
         {canDelete && (
