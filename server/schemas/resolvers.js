@@ -202,22 +202,24 @@ const resolvers = {
     removeComment: async (parent, { pictureId, commentId }, {authorization}) => {
       const { _id: authUser} = checkToken(authorization)
       if (authUser) {
-        const pic = Picture.findOneAndUpdate(
+        const pic = await Picture.findOneAndUpdate(
           { _id: pictureId },
-          { $pull: { comments: { _id: commentId } } },
+          { $pull: { comments: commentId } },
           { new: true }
         );
-        const user = User.findOneAndUpdate(
+        const user = await User.findOneAndUpdate(
           { _id: authUser },
-          { $pull: { comments: { _id: commentId } } },
+          { $pull: { comments: commentId  } },
           { new: true }
         );
-        const comment = Comments.deleteOne(
+        const comment = await Comments.deleteOne(
           { _id: commentId }
         );
 
-        return comment
+        return comment.ok
       }
+      throw new AuthenticationError("Need to be logged in to delete a comment");
+
     },
     removePicture: async (parent, { pictureId }) => {
       return Picture.deleteOne(
