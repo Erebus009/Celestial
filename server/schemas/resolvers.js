@@ -155,6 +155,42 @@ const resolvers = {
 
       throw new AuthenticationError("Need to be logged in to post pictures");
     },
+    addComment: async (parent, { pictureId, commentText }, {authorization}) => {
+      const { _id: authUser} = checkToken(authorization)
+      if (authUser) {
+          const comment = await Comments.create({
+            commentText: commentText,
+            commentAuthor: authUser,
+            post: pictureId,
+          });
+
+          const user = await User.findByIdAndUpdate(
+            { _id: authUser },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+
+          const pic = await Picture.findByIdAndUpdate(
+            { _id: pictureId },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+          return await Comments.findOne({_id: comment._id}).populate("commentAuthor");
+        };
+      throw new AuthenticationError("Need to be logged in to post comments");
+    },
+
+
     removeFavorite: async (parent, { favId }) => {
       return Favorite.findOneAndUpdate(
         { _id: favId },

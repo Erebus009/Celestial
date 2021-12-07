@@ -62,6 +62,4 @@ query picture($pictureId:ID!){
 
 }`
 
-//export const QUERY_USERPICTURES = gql``
-
 

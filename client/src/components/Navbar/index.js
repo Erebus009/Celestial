@@ -11,8 +11,13 @@ import LoginScreen from "../Login";
 import SignupScreen from "../Signup";
 import Auth from '../../utils/auth'
 
+import PictureScreen from "../PostPicture"
 
 function NavBar() {
+  const [pictureShow, setShowPictureForm] = useState(false);
+  const hidePictureForm = () => setShowPictureForm(false);
+  const showPictureForm = () => setShowPictureForm(true);
+
   const [loginShow, setShowLogin] = useState(false);
   const hideLogin = () => setShowLogin(false);
   const showLogin = () => setShowLogin(true);
@@ -66,9 +71,15 @@ function NavBar() {
             </>
           ) : (
             <>
-              <Link className="text-dark" to="">
+              <Link className="text-dark" to="" onClick={showPictureForm}>
                 <h1 className="logoutNav">Post a Photo</h1>
               </Link>
+              <PictureScreen
+                show={pictureShow}
+                handleClose={hidePictureForm}
+                isModal={true}
+
+              />
               <Link className="text-dark" to="/profile">
                 <h1 className="logoutNav">Profile</h1>
               </Link>
