@@ -23,12 +23,12 @@ console.log(locationPic);
 console.log(pic);
   return (
   
-  <div>
+  <div className="">
       {loading ?
        <h1>Picture page...</h1> : (
 <>
       
-       <img src={pic.imagelink}></img>
+       <img className="text-center container d-flex" src={pic.imagelink}></img>
        <h1>{pic.title}</h1>
        <p>{pic.text}</p>
 <Comments currentComments={pic.comments} pictureId={locationPic} />
