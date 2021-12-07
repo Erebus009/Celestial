@@ -55,7 +55,7 @@ const typeDefs = gql`
 
     addFavorite(pictureId: ID!): Picture
 
-    removeComment(pictureId: ID!, commentId: ID!): ID
+    removeComment(pictureId: ID!, commentId: ID!): Int
 
     removePicture(pictureId: ID!): String
 
