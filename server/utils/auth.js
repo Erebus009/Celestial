@@ -16,8 +16,6 @@ module.exports = {
 
     const userToken = token.split(' ').pop().trim();
 
-    console.log(userToken)
-
     try {
       const {data}  = jwt.verify(userToken, secret, { maxAge: expiration });
       return data

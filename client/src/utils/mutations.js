@@ -66,3 +66,10 @@ mutation addComment($pictureId: ID!, $commentText: String){
   }
 }
 `;
+
+export const DELETE_COMMENT = gql`
+mutation deleteComment($pictureId: ID!, $commentId: ID!){
+  removeComment(pictureId: $pictureId, commentId: $commentId){
+      _id
+  }
+}`;
