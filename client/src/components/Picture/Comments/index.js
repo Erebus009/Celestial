@@ -48,9 +48,9 @@ const Comments = ({ currentComments, pictureId }) => {
     <Container fluid="md">
       <Row>
         <div className="comments">
-          <h3 className="comments-title">Comments</h3>
+          <h3 className="comments-title text-white">Comments</h3>
         {Auth.loggedIn() ? ( <>
-          <div className="comment-form-title">Write comment</div>
+          <div className="comment-form-title text-white">Write comment</div>
           <CommentForm submitLabel="Post" handleSubmit={addComment} />
         </>):
         (<></>)}
