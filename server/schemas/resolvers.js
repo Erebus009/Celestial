@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Picture, Favorite, Comments } = require("../models");
-const { signToken, checkToken} = require("../utils/auth");
+const { signToken, checkToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -35,7 +35,7 @@ const resolvers = {
           path: "commentAuthor",
         },
       });
-      return pic.populate("commentAuthor");
+      return pic;
     },
   },
   //  User AUTH mutation
@@ -65,18 +65,18 @@ const resolvers = {
       return { token, user };
     },
 
-    addPicture: async (parent, { imagelink, text, title }, context) => {
-      console.log(imagelink, title, text);
-      if (context.userID) {
+    addPicture: async (parent, { imagelink, text, title }, {authorization}) => {
+      const { _id: authUser } = checkToken(authorization)
+      if (authUser) {
         const picture = await Picture.create({
           imagelink: imagelink,
           title: title,
           text: text,
-          postedBy: context.userID,
+          postedBy: authUser,
         });
 
         const updatedUser = await User.findOneAndUpdate(
-          { _id: context.userID },
+          { _id: authUser },
           {
             $push: { pictures: picture._id },
           },
@@ -88,22 +88,58 @@ const resolvers = {
       }
     },
 
-       addFavorite: async (parent, { pictureId }, context) => {
-      if (context.userID) {
+    addComment: async (parent, { pictureId, commentText }, {authorization}) => {
+      const { _id: authUser} = checkToken(authorization)
+      if (authUser) {
+          const comment = await Comments.create({
+            commentText: commentText,
+            commentAuthor: authUser,
+            post: pictureId,
+          });
+
+          const user = await User.findByIdAndUpdate(
+            { _id: authUser },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+
+          const pic = await Picture.findByIdAndUpdate(
+            { _id: pictureId },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+          return await Comments.findOne({_id: comment._id}).populate("commentAuthor");
+        };
+      throw new AuthenticationError("Need to be logged in to post comments");
+    },
+
+    addFavorite: async (parent, { pictureId }, {authorization}) => {
+      const { _id: authUser } = checkToken(authorization)
+      if (authUser) {
         const user = await User.findOne({
-          _id: context.userID,
-        });
-
-        console.log(user);
-
-        if (!user.favorites.some((fav) => fav._id === pictureId)) {
+          _id: authUser,
+        })
+        
+        if (!user.favorites.find((fav) => {
+          fav === pictureId
+        })) {
           user.favorites.push(pictureId);
           user.save();
 
           const pic = Picture.findOneAndUpdate(
             { _id: pictureId },
             {
-              $addToSet: { favorited: { _id: context.userID } },
+              $addToSet: { favorited: { _id: authUser } },
             },
             {
               new: true,
@@ -114,7 +150,7 @@ const resolvers = {
           return pic;
         }
 
-        // throw new AuthenticationError("You already favorited this picture!");
+        throw new AuthenticationError("You already favorited this picture!");
       }
 
       throw new AuthenticationError("Need to be logged in to post pictures");
