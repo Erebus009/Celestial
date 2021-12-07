@@ -29,6 +29,7 @@ const typeDefs = gql`
     _id: ID
     commentText: String
     commentAuthor: User
+    post: Picture
     createdAt: String
   }
 
@@ -50,11 +51,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
 
     addPicture(title: String!, text: String!, imagelink: String!): Picture
-
-    addComment(
-    commentText: String!
-    pictureId: ID!
-    ): Picture
+    addComment(pictureId: ID!, commentText: String): Picture
 
     addFavorite(pictureId: ID!): Picture
 

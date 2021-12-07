@@ -15,6 +15,7 @@ export default function PictureID() {
   });
 
   const pic = data?.getOnePic || "";
+  
 
   if(error){
       return <h1>Unable to find picture</h1>

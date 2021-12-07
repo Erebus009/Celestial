@@ -54,3 +54,8 @@ mutation addFavorite($picID:ID!){
 }
 `;
 
+export const ADD_COMMENT = gql`
+
+
+`
+
