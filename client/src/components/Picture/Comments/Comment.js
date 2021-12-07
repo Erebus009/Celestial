@@ -2,9 +2,10 @@ import React from "react";
 import CommentForm from "./CommentForm";
 import Auth from "../../../utils/auth";
 const Comment = ({ comment, deleteComment, addComment }) => {
-  const canDelete =
+  
+  const canDelete = 
     Auth.loggedIn() &&
-    Auth.getProfile().user._id === comment.commentAuthor._id;
+    Auth.getProfile().data._id === comment.commentAuthor._id;
 
   const createdAt = new Date(comment.createdAt).toLocaleDateString();
 console.log(comment)

@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import { ADD_COMMENT, DELETE_COMMENT } from "../../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import './styles/comments.css';
+import Auth from "../../../utils/auth";
 const Comments = ({ currentComments, pictureId }) => {
     console.log(currentComments);
   const [backendComments, setBackendComments] = useState([]);
@@ -46,8 +47,12 @@ const Comments = ({ currentComments, pictureId }) => {
       <Row>
         <div className="comments">
           <h3 className="comments-title">Comments</h3>
+
+  {Auth.loggedIn() ? (<>
           <div className="comment-form-title">Write comment</div>
           <CommentForm submitLabel="Write" handleSubmit={addComment} />
+  </>) :(<></>) 
+}
           <div className="comments-container">
             {backendComments.map((comment) => (
               <Comment
