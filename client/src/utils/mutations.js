@@ -50,7 +50,12 @@ mutation addFavorite($picID:ID!){
     commentcount
     favcount
   }
-  }
+  
 }
+`;
+
+export const ADD_COMMENT = gql`
+
+
 `
 
