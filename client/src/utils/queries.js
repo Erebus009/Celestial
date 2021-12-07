@@ -48,8 +48,10 @@ query picture($pictureId:ID!){
     imagelink
     createdAt
     comments{
+      _id
       commentText
       commentAuthor{
+        _id
         username
       }
       createdAt
@@ -59,7 +61,5 @@ query picture($pictureId:ID!){
   }
 
 }`
-
-//export const QUERY_USERPICTURES = gql``
 
 

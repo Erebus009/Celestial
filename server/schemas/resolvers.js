@@ -1,6 +1,6 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Picture, Favorite, Comments } = require("../models");
-const { signToken } = require("../utils/auth");
+const { signToken, checkToken} = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -88,48 +88,7 @@ const resolvers = {
       }
     },
 
-    addComment: async (parent, { pictureId, commentText }, context) => {
-      if (context.userID) {
-        const comment = await Comments.create({
-          commentText: commentText,
-          commentAuthor: context.userID,
-          post: pictureId,
-        });
-
-        const user = await User.findByIdAndUpdate(
-          { _id: context.userID },
-          {
-            $push: { comments: comment._id },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-
-        const pic = await Picture.findByIdAndUpdate(
-          { _id: pictureId },
-          {
-            $push: { comments: comment._id },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        ).populate({
-          path: "comments",
-          populate: {
-            path: "commentAuthor",
-          },
-        });
-
-        return pic;
-      }
-
-      throw new AuthenticationError("Need to be logged in to post pictures");
-    },
-
-    addFavorite: async (parent, { pictureId }, context) => {
+       addFavorite: async (parent, { pictureId }, context) => {
       if (context.userID) {
         const user = await User.findOne({
           _id: context.userID,
@@ -160,6 +119,42 @@ const resolvers = {
 
       throw new AuthenticationError("Need to be logged in to post pictures");
     },
+    addComment: async (parent, { pictureId, commentText }, {authorization}) => {
+      const { _id: authUser} = checkToken(authorization)
+      if (authUser) {
+          const comment = await Comments.create({
+            commentText: commentText,
+            commentAuthor: authUser,
+            post: pictureId,
+          });
+
+          const user = await User.findByIdAndUpdate(
+            { _id: authUser },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+
+          const pic = await Picture.findByIdAndUpdate(
+            { _id: pictureId },
+            {
+              $push: { comments: comment._id },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+          return await Comments.findOne({_id: comment._id}).populate("commentAuthor");
+        };
+      throw new AuthenticationError("Need to be logged in to post comments");
+    },
+
+
     removeFavorite: async (parent, { favId }) => {
       return Favorite.findOneAndUpdate(
         { _id: favId },

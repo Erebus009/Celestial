@@ -51,7 +51,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
 
     addPicture(title: String!, text: String!, imagelink: String!): Picture
-    addComment(pictureId: ID!, commentText: String): Picture
+    addComment(pictureId: ID!, commentText: String): Comment
 
     addFavorite(pictureId: ID!): Picture
 
