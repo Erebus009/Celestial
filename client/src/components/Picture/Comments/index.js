@@ -7,20 +7,22 @@ import Container from "react-bootstrap/Container";
 import { ADD_COMMENT, DELETE_COMMENT } from "../../../utils/mutations";
 import { useMutation } from "@apollo/client";
 import './styles/comments.css';
+import Auth from "../../../utils/auth";
+
 const Comments = ({ currentComments, pictureId }) => {
-    console.log(currentComments);
   const [backendComments, setBackendComments] = useState([]);
 
 //   const [deletingComment, { loading, error, data }] =
 //     useMutation(DELETE_COMMENT);
 
   const [addingComment, { loading, error, data }] = useMutation(ADD_COMMENT);
+  
   const addComment = async (text) => {
     try {
-      const data = await addingComment({
+      const {data} = await addingComment({
         variables: { commentText: text, pictureId: pictureId },
       });
-      setBackendComments([data, ...backendComments]);
+      setBackendComments([...backendComments, data.addComment ]);
     } catch (e) {}
   };
 
@@ -38,6 +40,7 @@ const Comments = ({ currentComments, pictureId }) => {
 //   };
 
   useEffect(() => {
+    console.log(currentComments)
     setBackendComments(currentComments);
   }, []);
 
@@ -46,8 +49,11 @@ const Comments = ({ currentComments, pictureId }) => {
       <Row>
         <div className="comments">
           <h3 className="comments-title">Comments</h3>
+        {Auth.loggedIn() ? ( <>
           <div className="comment-form-title">Write comment</div>
-          <CommentForm submitLabel="Write" handleSubmit={addComment} />
+          <CommentForm submitLabel="Post" handleSubmit={addComment} />
+        </>):
+        (<></>)}
           <div className="comments-container">
             {backendComments.map((comment) => (
               <Comment

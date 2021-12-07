@@ -1,13 +1,13 @@
 import React from "react";
-import CommentForm from "./CommentForm";
 import Auth from "../../../utils/auth";
-const Comment = ({ comment, deleteComment, addComment }) => {
+const Comment = ({ comment, deleteComment }) => {
+  
   const canDelete =
     Auth.loggedIn() &&
-    Auth.getProfile().user._id === comment.commentAuthor._id;
+    Auth.getProfile().data._id === comment.commentAuthor._id;
 
   const createdAt = new Date(comment.createdAt).toLocaleDateString();
-console.log(comment)
+
   return (
   <div key={comment._id} className="comment">
     <div className="comment-image-container">
@@ -18,9 +18,9 @@ console.log(comment)
     </div>
     <div className="comment-right-part">
       <div className="comment-content">
-        <div className="comment-author">{comment.commentAuthor.username}</div>
-
-        <div>{createdAt}</div>
+        <div className="comment-author">Posted by: {comment.commentAuthor.username}</div>
+        <div>{comment.commentText}</div>
+        <div>Posted on: {createdAt}</div>
       </div>
       <div className="comment-actions">
         {canDelete && (
