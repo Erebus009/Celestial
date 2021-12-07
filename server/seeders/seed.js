@@ -7,7 +7,7 @@ db.once('open', async () => {
     await Picture.deleteMany({});
     await Picture.create(imageSeeds);
 
-    console.log('all done!');
+    console.log(' Database seeded!');
     process.exit(0);
   } catch (err) {
     throw err;

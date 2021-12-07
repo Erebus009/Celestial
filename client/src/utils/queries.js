@@ -24,22 +24,42 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_PICTURES = gql`
-query getPictures($offset:Int,$limit:Int){
-  allPictures(offset:$offset, limit:$limit){
+query getPictures($limit:Int){
+  allPictures(limit:$limit){
     _id
+    postedBy
     text
     title
     imagelink
     createdAt
-    comments{
-      commentText
-    }
     commentcount
     favcount
   }
 
 }`
 
-//export const QUERY_USERPICTURES = gql``
+export const QUERY_PICTURE = gql`
+query picture($pictureId:ID!){
+  picture(pictureId:$pictureId){
+    _id
+    postedBy
+    text
+    title
+    imagelink
+    createdAt
+    comments{
+      _id
+      commentText
+      commentAuthor{
+        _id
+        username
+      }
+      createdAt
+    }
+    commentcount
+    favcount
+  }
+
+}`
 
 

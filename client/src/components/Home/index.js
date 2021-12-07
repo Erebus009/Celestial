@@ -16,7 +16,6 @@ const Home = () => {
 
   const { loading, data, fetchMore } = useQuery(QUERY_PICTURES, {
     variables: {
-      offset: 0,
       limit: limit,
     },
   });
