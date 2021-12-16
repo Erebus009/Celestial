@@ -29,7 +29,6 @@ console.log(pic);
 <>
       
        <img className="text-center container d-flex" src={pic.imagelink}></img>
-       <h1>{pic.title}</h1>
        <p>{pic.text}</p>
 <Comments currentComments={pic.comments} pictureId={locationPic} />
 
