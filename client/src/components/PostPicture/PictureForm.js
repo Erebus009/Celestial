@@ -34,7 +34,7 @@ function PictureForm({ formState, handleChange, handleFormSubmit }) {
         <Form.Group className="mb-3" controlId="formImageLink">
           <Form.Label>Imagelink</Form.Label>
           <Form.Control
-            type="text"
+            type="file"
             placeholder="Link to image here"
             name="imagelink"
             value={formState.imagelink}
