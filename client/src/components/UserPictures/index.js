@@ -4,7 +4,7 @@ import ModalImage from "react-modal-image";
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../../utils/auth';
 import { Link } from 'react-router-dom';
-
+import './style.css'
 import Card from 'react-bootstrap/Card';
 
 
@@ -20,7 +20,7 @@ const UserPictures = ({ allPictures }) => {
         } else {
           navigate("/login");
         }
-      };
+      };  
 
     const [count, setCount]= useState(30);
 
@@ -58,7 +58,7 @@ return (
        alt=""
        />
         <Card.Body >
-          <Card.Title>{picture.title}</Card.Title>
+         
           <Link to={`/pictures/${picture._id}`}><Card.Title>{picture.title}</Card.Title></Link>
           <div className="star-container">
        <div className="starLike">

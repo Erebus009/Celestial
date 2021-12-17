@@ -5,7 +5,7 @@ const Profile = () => {
   return (
     <div className="container.fluid d-columns mb-2 profile justify-content-start">
      <div className="container text-center mb-5">
-          <h4>
+          <h4 className="text-white">
             Made with{' '}
             <span
               className="emoji"
@@ -15,7 +15,7 @@ const Profile = () => {
             >
               ❤️
             </span>{' '}
-            by the Tech Thoughts team.
+           
           </h4>
         </div>
     </div>
