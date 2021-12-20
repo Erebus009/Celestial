@@ -1,79 +1,88 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { ADD_PICTURE } from "../../utils/mutations.js";
+import React, { useState, useEffect } from "react";
+import "./style.scss";
+import { storage } from "./../../firebase/index";
 
-// bootstrap
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+const PostPicture = (props) => {
+  const [image, setImage] = useState();
+  const [preview, setPreview] = useState();
 
-import PictureForm from "./PictureForm.js";
-
-const PictureScreen = ({ show, handleClose, isModal }) => {
-  const [formState, setFormState] = useState({
-    title: "",
-    text: "",
-    imagelink: "",
-  });
-
-  // eslint-disable-next-line
-  const [addPicture, { error, data }] = useMutation(ADD_PICTURE);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    window.location.reload();
-
-    try {
-      const { data } = await addPicture({
-        variables: { ...formState },
-      });
-      console.log(data);
-    } catch (e) {
-      console.error(e);
+  useEffect(() => {
+    if (!image) {
+      setPreview(undefined);
+      return;
     }
+    const objectUrl = URL.createObjectURL(image);
+    setPreview(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [image]);
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+    
   };
+
+  const handleFileUpload = (e) => {
+    e.preventDefault()
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on("state_changed",snapshot => {},
+    error => {
+      console.log(error)
+    }, () => {
+      storage.ref("images").child(image.name).getDownloadURL().then(url => console.log(url))
+      })
+  };
+  
+  console.log("image:", image)
 
   return (
-    <>
-      <Modal
-        style={{ opacity: 1 }}
-        show={show}
-        onClick={handleClose}
-        backdrop="static"
-        keyboard={false}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Celestial ⭐</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <PictureForm
-            formState={formState}
-            handleChange={handleChange}
-            handleFormSubmit={handleFormSubmit}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="primary"
-            style={{ cursor: "pointer" }}
-            typeof="submit"
-            onClick={handleFormSubmit}
-          >
-            Post
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+    
+    <div className=" uploadContainer d-flex jsutify-content-center">
+     
+     <div className="uploadPost">
+      <div className="Post-wrapper">
+      <img src={preview} alt=""></img>
+      </div>
+      </div>
+    
+    
+      <form className="imageForm">
+
+          
+        
+        <input
+          id="file-upload"
+          className="custom-file-upload"
+          type="file"
+          onChange={handleChange}
+        ></input>
+        <p>Title of Photo</p>
+        <input 
+        type="text"
+        placeholder="Enter title here"
+        ></input>
+        <p>Description of Photo</p>
+        <textarea
+        type="textarea"
+        placeholder="Enter description here"
+        >
+        </textarea>
+        <label htmlFor="file-upload" class="custom-file-upload">
+          <i className="fa fa-cloud-upload"></i> Choose File
+        </label>
+        
+        
+        
+        <div className="d-flex mt-3">
+          <button className="btn btn-dark w-100" onClick={handleFileUpload}>Upload file</button>
+        </div>
+      </form>
+      </div>
+    
+    
   );
 };
 
-export default PictureScreen;
+export default PostPicture;
