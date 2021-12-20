@@ -10,13 +10,12 @@ import { Link } from "react-router-dom";
 import LoginScreen from "../Login";
 import SignupScreen from "../Signup";
 import Auth from '../../utils/auth'
+import { Navigate } from "react-router";
 
 import PictureScreen from "../PostPicture"
 
 function NavBar() {
-  const [pictureShow, setShowPictureForm] = useState(false);
-  const hidePictureForm = () => setShowPictureForm(false);
-  const showPictureForm = () => setShowPictureForm(true);
+  
 
   const [loginShow, setShowLogin] = useState(false);
   const hideLogin = () => setShowLogin(false);
@@ -71,15 +70,10 @@ function NavBar() {
             </>
           ) : (
             <>
-              <Link className="text-dark" to="" onClick={showPictureForm}>
+              <Link className="text-dark" to="/post">
                 <h1 className="logoutNav">Post a Photo</h1>
               </Link>
-              <PictureScreen
-                show={pictureShow}
-                handleClose={hidePictureForm}
-                isModal={true}
-
-              />
+              
               <Link className="text-dark" to="/profile">
                 <h1 className="logoutNav">Profile</h1>
               </Link>
