@@ -30,6 +30,7 @@ import PostPicture from "./components/PostPicture"
 import Navbar from "./components/Navbar/index.js";
 import Auth from "./utils/auth";
 
+
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -67,6 +68,9 @@ export const UserID = createContext(null);
 
 function App() {
   const [userID, setUserID] = useState("");
+
+ 
+
 
   useEffect(() => {
     setUserID(checkLoggedIn());

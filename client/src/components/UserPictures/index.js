@@ -11,7 +11,9 @@ import Card from 'react-bootstrap/Card';
 
 
 
-const UserPictures = ({ allPictures }) => {
+
+
+const Userimages = ({ allPictures }) => {
     const navigate = useNavigate();
     
     const redirect = () => {
@@ -21,6 +23,9 @@ const UserPictures = ({ allPictures }) => {
           navigate("/login");
         }
       };  
+
+      
+      
 
     const [count, setCount]= useState(30);
 
@@ -37,48 +42,44 @@ const UserPictures = ({ allPictures }) => {
         }
         
 
-const timeStamp = (epochTime) => {
-    
-  var myDate = new Date(epochTime *1000);
-  return myDate
-}
+
 
 return (
     <div className="container.fluid card-box ">
         {allPictures &&
-        allPictures.map((picture ) => (
+        allPictures.map(( user ) => (
        
          
   
     
-      <Card className="grid-item mb-3" key={picture._id}>
-      <ModalImage variant="top" src={picture.imagelink}
-       small={picture.imagelink}
-       large={picture.imagelink}
+      <Card className="grid-item mb-3" key={user._id}>
+      <ModalImage variant="top" src={user.image}
+       small={user.image}
+       large={user.image}
        alt=""
        />
         <Card.Body >
          
-          <Link to={`/pictures/${picture._id}`}><Card.Title>{picture.title}</Card.Title></Link>
+          <Link to={`/images/${user._id}`}><Card.Title>{user.title}</Card.Title></Link>
           <div className="star-container">
        <div className="starLike">
          <i className="fas fa-star starIcon" onClick={counter}></i>
-          <span>{picture.favcount} favorites</span>
+          <span>{user.favcount} favorites</span>
        </div>
        <div className="arrowDown">
          <i className="fas fa-arrow-alt-circle-down arrowIcon" onClick={downArrow}></i>
-         <span>{picture.commentcount} comments</span>
+         <span>{user.commentcount} comments</span>
          </div>
          </div>
           <Card.Text className="py-4">
-            {picture.text}
+            {user.name}
           </Card.Text>
         </Card.Body>
         <div className="container">
-          <button className="btn btn-dark btn-sm text-white"onClick={redirect}>{picture.commentcount}</button>
+          <button className="btn btn-dark btn-sm text-white" onClick={redirect}>{user.commentcount}</button>
         </div>
         <Card.Footer>
-          <small className="text-muted">Last updated ({picture.createdAt})</small>
+          <small className="text-muted">Last updated ({user.createdAt})</small>
         </Card.Footer>
         
       </Card>
@@ -95,7 +96,7 @@ return (
 )
 }
 
-export default UserPictures
+export default Userimages
 
 
 
