@@ -3,26 +3,31 @@ import "./styles/home.css";
 
 import APOD from "../PictureCards/APOD";
 import Container from "react-bootstrap/esm/Container";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import TopPics from "./TopPics";
-import { useQuery } from "@apollo/client";
-import { QUERY_PICTURES } from "../../utils/queries";
 import UserPictures from "../../components/UserPictures";
-
+import {db} from "../../firebase/index"
+import { collection, getDocs } from "firebase/firestore"
 
 const Home = () => {
   // For loading data of user uploaded pictures
-  const [limit, setLimit] = useState(9);
+ 
+  const [images, setImages ] = useState([])
+  const userImagesRef = collection(db, "users")
 
-  const { loading, data, fetchMore } = useQuery(QUERY_PICTURES, {
-    variables: {
-      limit: limit,
-    },
-  });
+  useEffect(()=> {
+    const getImages = async () => {
+      const data = await getDocs(userImagesRef)
+      setImages(data.docs.map((doc)=> ({
+        ...doc.data(), id: doc.id
+      })))
+      console.log(data.docs)
+    }
+    getImages()
+  }, [])
 
 
 
-  const allPictures = data?.allPictures || [];
 
 
 
@@ -44,21 +49,11 @@ const Home = () => {
           
         </Container>
         
-        {loading ? (
-              <div>Loading...</div>
-              
-            ) : (
               <UserPictures
-                allPictures={allPictures}
-                onLoadMore={() =>
-                  fetchMore({
-                    variables: {
-                      offset: data.allPictures.length,
-                    },
-                  })
-                }
+                allPictures={images}
+                
               />
-            )}
+            )
            
     </main>
   );

@@ -31,8 +31,10 @@ const PostPicture = (props) => {
     error => {
       console.log(error)
     }, () => {
-      storage.ref("images").child(image.name).getDownloadURL().then(url => console.log(url))
+      storage.ref("images").child(image.name).getDownloadURL().then()
+      setPreview(undefined)
       })
+      
   };
   
   console.log("image:", image)
