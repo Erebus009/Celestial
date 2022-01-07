@@ -10,9 +10,7 @@ import { Link } from "react-router-dom";
 import LoginScreen from "../Login";
 import SignupScreen from "../Signup";
 import Auth from '../../utils/auth'
-import { Navigate } from "react-router";
 
-import PictureScreen from "../PostPicture"
 
 function NavBar() {
   
@@ -35,13 +33,7 @@ function NavBar() {
     >
       <Container>
           <Navbar.Brand id="brandName" href="/">
-          <ImageBrand
-            src={Logo}
-            rounded
-            className="nasa-nav"
-            width="100"
-            height="88"
-          />
+          <h1>Celestial</h1>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
